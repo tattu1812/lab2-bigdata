@@ -1,0 +1,34 @@
+{
+  "processing_stages": [
+    "prekey_validation",
+    "deduplication",
+    "winner_row_validation",
+    "release_or_quarantine"
+  ],
+  "prekey_validation_policy": {
+    "before_deduplication": true,
+    "checks": [
+      "PARSE",
+      "KEY",
+      "INGEST_PARSE"
+    ],
+    "invalid_records": "quarantine_before_deduplication",
+    "invalid_ingest_time": "INGEST_PARSE",
+    "eligible_for_deduplication": "only_prekey_valid_records"
+  },
+  "deduplication_winner_policy": {
+    "selection": "first_record_after_sort",
+    "validate_winner_after_selection": true,
+    "invalid_winner": "quarantine_no_fallback",
+    "non_winners": "exclude_from_release"
+  },
+  "temperature_rounding": {
+    "decimal_places": 2,
+    "mode": "ROUND_HALF_UP",
+    "apply_after": [
+      "unit_conversion",
+      "finite_check",
+      "range_check"
+    ]
+  }
+}
