@@ -1,6 +1,6 @@
 operator,reviewer,command,run_id,input_version,output_file
 tattu1812,,python3 src/check_integrity.py,I01,research-telemetry-v1,evidence/task1/integrity-test.json
 tattu1812,,python3 src/create_envelopes.py,I02,research-telemetry-v1,evidence/task1/envelope-check.json
-tattu1812,,mutation test (original command to verify),I03,research-telemetry-v1,evidence/task1/mutation-test.json
-tattu1812,,S3 access test (original command to verify),I04,research-telemetry-v1,evidence/task1/access-test.json
+tattu1812,,python3 src/test_mutation.py,I03,research-telemetry-v1,evidence/task1/mutation-test.json
+tattu1812,,kubectl exec -n bd-g01 curate -- python3 /work/test_access.py,I04,research-telemetry-v1,evidence/task1/access-test.json
 tattu1812,,kubectl exec -n bd-g01 curate -- python3 /work/stage_inputs.py s3 /work/trusted_manifest.json,I05,research-telemetry-v1,evidence/task1/stage-report.json
