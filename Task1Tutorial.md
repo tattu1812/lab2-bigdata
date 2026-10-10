@@ -324,3 +324,23 @@ Các kết quả PASS trong tutorial được ghi nhận từ môi trường th�
 - Chốt hoặc phê duyệt contract.
 
 Các bước này phải thực hiện riêng theo hướng dẫn ở trên.
+
+## 9. Kiểm thử tái lập trên Pod mới
+
+Đã thực hiện trên cluster thực hành `k3d-bigdata`, namespace `bd-g01`.
+
+Quy trình:
+1. Xóa Pod `curate` cũ.
+2. Tạo lại Pod bằng `manifests/curate.yaml`.
+3. Chờ Pod ở trạng thái Ready.
+4. Chạy lại `./src/run_task1.sh`.
+
+Kết quả:
+
+```text
+PASS: stage-report.json
+PASS: envelope-check.json
+TASK 1 STAGING + ENVELOPE: PASS
+```
+
+Kết luận: Pipeline S3 staging và envelope chạy thành công sau khi tạo lại Pod. Việc tái lập toàn bộ các kiểm thử I01–I04 và cài đặt DuckDB chưa nằm trong phạm vi kiểm thử này.
