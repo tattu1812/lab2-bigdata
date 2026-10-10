@@ -3,7 +3,7 @@ from pathlib import Path
 from jsonschema import Draft202012Validator, FormatChecker
 
 schema_path = Path("data/Lab2-datasets/schemas/observation_contract_schema.json")
-contract_path = Path("outputs/contract.json")
+contract_path = Path("contracts/contract.json")
 
 schema = json.loads(schema_path.read_text(encoding="utf-8"))
 contract = json.loads(contract_path.read_text(encoding="utf-8"))
