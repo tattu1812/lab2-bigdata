@@ -333,9 +333,6 @@ Quy trình:
 1. Xóa Pod `curate` cũ.
 2. Tạo lại Pod bằng `manifests/curate.yaml`.
 3. Chờ Pod ở trạng thái Ready.
-4. Chạy lại `./src/run_task1.sh task1-YYYYMMDD-01`.
-
-Kết quả:
 
 ```text
 PASS: stage-report.json
@@ -382,9 +379,9 @@ Nếu Pod chưa tồn tại, tham khảo manifests/curate.yaml và hướng dẫ
 10.3. Kiểm tra Secret S3
 
 Liệt kê tên Secret trong namespace:
-
+```bash
 kubectl get secrets -n "$NS"
-
+```
 Đối chiếu cấu hình Secret với manifests/curate.yaml. Không in giá trị access key hoặc secret key ra terminal log, tài liệu hoặc Git.
 
 Nếu Pod sử dụng Secret thông qua biến môi trường, kiểm tra tham chiếu mà không đọc giá trị credential:
@@ -397,9 +394,9 @@ Lưu ý: Lệnh này chỉ hiển thị các tham chiếu Secret được khai b
 10.4. Kiểm tra manifest và input objects
 
 Kiểm tra manifest:
-
+```bash
 python3 -m json.tool data/trusted_manifest.json
-
+```
 Bốn object cần được xác minh trong bucket research-raw:
 
 lab2/inputs/batch-01/observations_a.csv
@@ -423,9 +420,9 @@ Không tự ghi đè hoặc sửa dữ liệu nguồn để làm cho kiểm th�
 Mỗi lần chạy phải sử dụng một run_id mới, chưa tồn tại.
 
 Ví dụ:
-
+```bash
 ./src/run_task1.sh task1-20261010-03
-
+```
 Thay ngày và số thứ tự bằng giá trị phù hợp với lần chạy thực tế. Không sử dụng nguyên chuỗi YYYYMMDD làm ngày chạy.
 
 11.2. Những việc script tự động thực hiện
