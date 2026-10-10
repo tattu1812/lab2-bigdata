@@ -7,6 +7,22 @@ cd "$(dirname "$0")/.."
 
 POD="curate"
 
+RUN_ID="${1:?Usage: ./src/run_task1.sh <run_id>}"
+
+if [[ ! "$RUN_ID" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+  echo "Invalid run_id: use letters, numbers, hyphens or underscores" >&2
+  exit 1
+fi
+
+EVIDENCE_DIR="evidence/task1/runs/$RUN_ID"
+
+if [[ -e "$EVIDENCE_DIR" ]]; then
+  echo "Evidence directory already exists: $EVIDENCE_DIR" >&2
+  exit 1
+fi
+
+echo "RUN_ID: $RUN_ID"
+
 echo "=== CHECK POD ==="
 kubectl wait \
   --for=condition=Ready \
@@ -36,21 +52,22 @@ kubectl exec -n "$NS" "$POD" -- \
   --output-dir /work
 
 echo "=== SAVE EVIDENCE ==="
-mkdir -p evidence/task1
+mkdir -p "$EVIDENCE_DIR"
 
 kubectl cp "$NS/$POD:/work/stage-report.json" \
-  evidence/task1/stage-report.json
+  "$EVIDENCE_DIR/stage-report.json"
 
 kubectl cp "$NS/$POD:/work/envelope-check.json" \
-  evidence/task1/envelope-check.json
+  "$EVIDENCE_DIR/envelope-check.json"
 
 echo "=== VERIFY RESULTS ==="
-python3 - <<'PY'
+RUN_ID="$RUN_ID" python3 - <<'PY'
 import json
+import os
 from pathlib import Path
 
 for name in ("stage-report.json", "envelope-check.json"):
-    path = Path("evidence/task1") / name
+    path = Path("evidence/task1/runs") / os.environ["RUN_ID"] / name
     report = json.loads(path.read_text(encoding="utf-8"))
     if report.get("status") != "PASS":
         raise SystemExit(f"FAIL: {name}")
