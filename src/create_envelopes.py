@@ -1,12 +1,25 @@
+import argparse
 import csv
 import json
 from pathlib import Path
 from collections import Counter
 
 ROOT = Path.home() / "lab2-bigdata"
-INPUT = ROOT / "data/s3-snapshot"
-OUTPUT = ROOT / "outputs"
-OUTPUT.mkdir(exist_ok=True)
+
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--input-dir",
+    default=str(ROOT / "data/s3-snapshot")
+)
+parser.add_argument(
+    "--output-dir",
+    default=str(ROOT / "outputs")
+)
+args = parser.parse_args()
+
+INPUT = Path(args.input_dir)
+OUTPUT = Path(args.output_dir)
+OUTPUT.mkdir(parents=True, exist_ok=True)
 
 envelopes = []
 
@@ -62,6 +75,7 @@ passed = (
     and unique_count == 10205
     and counts["observations_a.csv"] == 5000
     and counts["observations_b.jsonl"] == 5205
+    and parse_errors == 5
 )
 
 # File này là artifact nội bộ, có thể chứa dữ liệu raw.
