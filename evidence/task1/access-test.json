@@ -1,0 +1,9 @@
+{
+  "test_id": "I04",
+  "principal": "ingestor",
+  "get_raw": "PASS",
+  "put_release": "PASS",
+  "put_error": "AccessDenied",
+  "put_http_status": 403,
+  "status": "PASS"
+}
