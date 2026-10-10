@@ -344,3 +344,305 @@ TASK 1 STAGING + ENVELOPE: PASS
 ```
 
 Kết luận: Pipeline S3 staging và envelope chạy thành công sau khi tạo lại Pod. Việc tái lập toàn bộ các kiểm thử I01–I04 và cài đặt DuckDB chưa nằm trong phạm vi kiểm thử này.
+
+### Quy ước đường dẫn evidence
+
+Các file trực tiếp trong `evidence/task1/` là evidence đã lưu từ những lần kiểm thử trước hoặc các kiểm thử bổ sung.
+
+Mỗi lần chạy mới bằng `src/run_task1.sh <run_id>` sẽ lưu `stage-report.json` và `envelope-check.json` vào `evidence/task1/runs/<run_id>/`. Khi đánh giá kết quả mới, hãy sử dụng báo cáo trong thư mục run tương ứng, không mặc định dùng các file evidence cũ ở thư mục cha.
+
+## 10. Kiểm tra SeaweedFS, S3 Secret và input objects
+
+Thực hiện trước khi chạy pipeline trên cluster thực hành.
+
+```
+
+### 10.1. Kiểm tra cluster và Pod
+
+```bash
+source env.sh
+
+kubectl config current-context
+echo "$NS"
+
+kubectl get nodes
+kubectl get pod curate -n "$NS"
+kubectl get svc -n "$NS"
+Xác nhận đang dùng đúng cluster và namespace của nhóm. Pod curate phải ở trạng thái Running và Ready.
+
+10.2. Kiểm tra Pod và dịch vụ
+
+kubectl get pod curate -n "$NS"
+kubectl get svc -n "$NS"
+kubectl describe pod curate -n "$NS"
+
+Nếu Pod chưa tồn tại, tham khảo manifests/curate.yaml và hướng dẫn triển khai hiện có của nhóm để tạo lại Pod. Không tự tạo một cấu hình mới nếu chưa đối chiếu manifest.
+
+10.3. Kiểm tra Secret S3
+
+Liệt kê tên Secret trong namespace:
+
+kubectl get secrets -n "$NS"
+
+Đối chiếu cấu hình Secret với manifests/curate.yaml. Không in giá trị access key hoặc secret key ra terminal log, tài liệu hoặc Git.
+
+Nếu Pod sử dụng Secret thông qua biến môi trường, kiểm tra tham chiếu mà không đọc giá trị credential:
+
+kubectl get pod curate -n "$NS" \
+  -o jsonpath='{range .spec.containers[*]}{"Container: "}{.name}{"\n"}{range .env[*]}{.name}{" -> "}{.valueFrom.secretKeyRef.name}{"/"}{.valueFrom.secretKeyRef.key}{"\n"}{end}{end}'
+
+Lưu ý: Lệnh này chỉ hiển thị các tham chiếu Secret được khai báo trực tiếp trong env; nó không hiển thị đầy đủ mọi hình thức cấu hình môi trường.
+
+10.4. Kiểm tra manifest và input objects
+
+Kiểm tra manifest:
+
+python3 -m json.tool data/trusted_manifest.json
+
+Bốn object cần được xác minh trong bucket research-raw:
+
+lab2/inputs/batch-01/observations_a.csv
+
+lab2/inputs/batch-01/observations_b.jsonl
+
+lab2/inputs/batch-01/qa_reference.csv
+
+lab2/inputs/batch-01/sensors.csv
+
+Đối chiếu object key, kích thước và SHA-256 với data/trusted_manifest.json.
+
+Khả năng đọc thực tế được xác minh trong bước staging ở mục 11. Nếu staging thất bại, kiểm tra endpoint S3, Secret, quyền đọc, bucket và object key trước khi chạy lại.
+
+Không tự ghi đè hoặc sửa dữ liệu nguồn để làm cho kiểm thử PASS.
+
+## 11. Chạy staging và tạo raw envelopes
+
+11.1. Tạo run ID
+
+Mỗi lần chạy phải sử dụng một run_id mới, chưa tồn tại.
+
+Ví dụ:
+
+./src/run_task1.sh task1-20261010-03
+
+Thay ngày và số thứ tự bằng giá trị phù hợp với lần chạy thực tế. Không sử dụng nguyên chuỗi YYYYMMDD làm ngày chạy.
+
+11.2. Những việc script tự động thực hiện
+
+src/run_task1.sh:
+
+Kiểm tra biến NS.
+
+Chờ Pod curate ở trạng thái Ready.
+
+Sao chép manifest và các script cần thiết vào Pod.
+
+Chạy staging dữ liệu từ S3.
+
+Kiểm tra kích thước và SHA-256 của bốn input objects.
+
+Tạo raw envelopes từ CSV và JSONL.
+
+Lưu stage-report.json và envelope-check.json vào evidence/task1/runs/<run_id>/.
+
+Kiểm tra trạng thái hai báo cáo và kết thúc bằng thông báo PASS hoặc lỗi.
+
+Script không tự tạo cluster, Secret hoặc Pod; không tự cài DuckDB; không tự chạy toàn bộ I01, I03 và I04.
+
+11.3. Kết quả kỳ vọng
+
+Staging: PASS.
+
+Tổng envelopes: 10.205.
+
+observations_a.csv: 5.000 envelopes.
+
+observations_b.jsonl: 5.205 envelopes.
+
+JSONL parse errors: 5.
+
+Physical keys trùng lặp: 0.
+
+Kiểm tra báo cáo trong evidence/task1/runs/<run_id>/ của lần chạy vừa thực hiện. Nếu bất kỳ điều kiện nào không đạt, không xác nhận Task 1 hoàn thành cho lần chạy đó.
+
+## 12. Chạy kiểm thử I01–I04
+
+12.1. I01 – Kiểm tra integrity
+
+Chạy:
+
+python3 src/check_integrity.py
+
+Kiểm tra evidence/task1/integrity-test.json. Kết quả mong đợi là PASS cho cả bốn input objects.
+
+I01 đối chiếu kích thước và SHA-256 với trusted manifest.
+
+12.2. I02 – Kiểm tra envelope
+
+Chạy pipeline theo mục 11, sau đó kiểm tra envelope-check.json.
+
+Kết quả mong đợi:
+
+10.205 envelopes.
+
+10.205 unique physical IDs.
+
+5.000 CSV records.
+
+5.205 JSONL physical lines.
+
+5 JSONL parse errors được giữ lại.
+
+12.3. I03 – Kiểm tra mutation
+
+Chạy:
+
+python3 src/test_mutation.py
+
+Kiểm tra evidence/task1/mutation-test.json. Kết quả mong đợi là PASS: thay đổi một byte trong bản sao phải làm thất bại kiểm tra integrity.
+
+Script không chủ ý sửa file input gốc.
+
+12.4. I04 – Kiểm tra quyền S3
+
+Kiểm tra cấu hình credential và identity được yêu cầu trong đề bài trước khi chạy:
+
+kubectl exec -n "$NS" curate -- \
+  python3 /work/test_access.py
+
+Lệnh trên chỉ phù hợp khi script đã được sao chép vào Pod và môi trường xác thực S3 đã được cấu hình đúng.
+
+Kết quả đã ghi nhận trước đây cho identity ingestor:
+
+GET từ research-raw: PASS.
+
+PUT vào research-release: bị từ chối với AccessDenied, HTTP 403.
+
+Báo cáo I04: PASS.
+
+Cần xác nhận với nhóm rằng identity này đúng với yêu cầu chính thức của bài lab. Không coi kết quả của một identity là bằng chứng cho mọi identity khác.
+
+## 13. Kiểm tra I02 SQL bằng DuckDB
+
+Đây là kiểm tra bổ sung bằng SQL, không thay thế I02 envelope hoặc các kiểm thử I01, I03, I04.
+
+13.1. Điều kiện tiên quyết
+
+Cần có:
+
+/work/envelopes.jsonl trong Pod curate.
+
+src/check_i02_sql.py trong repository.
+
+Python trong Pod.
+
+DuckDB có thể import được trong Python.
+
+13.2. Kiểm tra DuckDB
+
+kubectl exec -n "$NS" curate -- \
+  env PYTHONPATH=/work/python-packages \
+  python3 -c "import duckdb; print(duckdb.__version__)"
+
+Phiên bản đã kiểm thử là 1.4.1.
+
+Nếu chưa cài DuckDB, cài vào thư mục riêng:
+
+kubectl exec -n "$NS" curate -- \
+  python3 -m pip install \
+  --no-cache-dir \
+  --target /work/python-packages \
+  duckdb==1.4.1
+
+Nếu Pod được tạo lại, thư mục cài đặt trong Pod có thể mất và cần được chuẩn bị lại.
+
+13.3. Sao chép script và chạy SQL
+
+kubectl cp src/check_i02_sql.py \
+  "$NS/curate:/work/check_i02_sql.py"
+
+kubectl exec -n "$NS" curate -- \
+  env PYTHONPATH=/work/python-packages \
+  python3 /work/check_i02_sql.py
+
+Kết quả mong đợi:
+
+DuckDB: 1.4.1.
+
+Tổng envelopes: 10205.
+
+CSV: 5000.
+
+JSONL: 5205.
+
+Duplicate physical keys: 0.
+
+JSONL parse errors: 5.
+
+Status: PASS.
+
+13.4. Lưu và xác minh SQL evidence
+
+mkdir -p evidence/task1
+
+kubectl cp \
+  "$NS/curate:/work/i02-sql-check.json" \
+  evidence/task1/i02-sql-check.json
+
+Xác minh:
+
+python3 - <<'PY'
+import json
+from pathlib import Path
+
+path = Path("evidence/task1/i02-sql-check.json")
+report = json.loads(path.read_text(encoding="utf-8"))
+
+assert report["status"] == "PASS"
+assert report["total_envelopes"] == 10205
+assert report["source_counts"]["observations_a.csv"] == 5000
+assert report["source_counts"]["observations_b.jsonl"] == 5205
+assert report["duplicate_physical_keys"] == 0
+assert report["jsonl_parse_errors"] == 5
+
+print("I02 SQL EVIDENCE: PASS")
+PY
+
+Sau khi xác minh, cập nhật evidence/evidence_index.csv theo định dạng hiện có, ghi đúng operator, reviewer nếu đã review, run ID, input version và đường dẫn evidence.
+
+Nếu cần lưu nhiều lần chạy độc lập, sử dụng quy ước thư mục run ID mà nhóm thống nhất và cập nhật evidence index tương ứng.
+
+## 14. Kiểm tra contract và evidence
+
+14.1. Contract validation
+
+python3 src/validate_contract.py
+
+Kết quả mong đợi: CONTRACT VALIDATION: PASS.
+
+14.2. Kiểm tra báo cáo JSON
+
+python3 -m json.tool evidence/task1/integrity-test.json >/dev/null
+python3 -m json.tool evidence/task1/envelope-check.json >/dev/null
+python3 -m json.tool evidence/task1/mutation-test.json >/dev/null
+python3 -m json.tool evidence/task1/access-test.json >/dev/null
+python3 -m json.tool evidence/task1/stage-report.json >/dev/null
+python3 -m json.tool evidence/task1/i02-sql-check.json >/dev/null
+
+Các lệnh trên chỉ kiểm tra cú pháp JSON. Để xác nhận một kiểm thử PASS, phải kiểm tra trường status trong báo cáo tương ứng.
+
+14.3. Kiểm tra Git
+
+git diff --check
+git status --short
+
+Không commit dữ liệu raw, credential, file envelopes.jsonl hoặc evidence chứa dữ liệu nhạy cảm.
+
+
+## 15. Bàn giao và giới hạn kiểm thử
+
+- Các kết quả đã ghi nhận được thu thập trên cluster thực hành.
+- Khi chạy trên cluster chính thức của nhóm, cần thực hiện lại các kiểm thử cần thiết và thu thập evidence mới.
+- I04 cần được đối chiếu với identity được yêu cầu trong đề bài.
+- Field mapping hiện ở trạng thái PARTIAL và cần reviewer xác nhận.
+- Staging và envelope PASS không đồng nghĩa các task curation hoặc release đã hoàn thành.
