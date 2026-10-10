@@ -1,0 +1,20 @@
+# Local data and generated outputs
+/data/
+/outputs/
+/private/
+/review-contract/
+/contract-review.zip
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+kubeconfig*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
