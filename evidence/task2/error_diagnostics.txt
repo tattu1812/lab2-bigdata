@@ -1,0 +1,8 @@
+reason | count | sample_source | sample_row
+NUMERIC | 60 | observations_a.csv | 101
+RANGE | 40 | observations_a.csv | 201
+REFERENCE | 30 | observations_a.csv | 311
+REQUIRED | 110 | observations_a.csv | 1
+TIME_ORDER | 30 | observations_a.csv | 281
+TIME_PARSE | 40 | observations_a.csv | 241
+UNIT | 40 | observations_a.csv | 161

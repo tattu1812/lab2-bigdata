@@ -1,0 +1,30 @@
+{
+  "dataset_version": "research-telemetry-v1",
+  "tests": [
+    {
+      "test_id": "ZERO_DENOMINATOR",
+      "expected_value": null,
+      "actual_value": null,
+      "expected_status": "NOT_EVALUATED",
+      "actual_status": "NOT_EVALUATED",
+      "status": "PASS"
+    },
+    {
+      "test_id": "REPRODUCIBILITY",
+      "sha256_first": "f697c03c68c1681fa4d444d9de5ad2cedf99ec5accd8aecd4e98d89eb4f860fd",
+      "sha256_second": "f697c03c68c1681fa4d444d9de5ad2cedf99ec5accd8aecd4e98d89eb4f860fd",
+      "status": "PASS"
+    },
+    {
+      "test_id": "NULL_SENSOR_COMPLETENESS",
+      "changed_record": "R000101",
+      "baseline_denominator": 9960,
+      "baseline_numerator": 9850,
+      "mutated_denominator": 9960,
+      "mutated_numerator": 9849,
+      "expected_numerator_change": -1,
+      "actual_numerator_change": -1,
+      "status": "PASS"
+    }
+  ]
+}
