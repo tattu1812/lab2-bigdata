@@ -1,0 +1,12 @@
+Python: 3.12.15
+DuckDB: 1.4.1
+
+Installation command:
+python3 -m pip install --no-cache-dir --target /work/python-packages duckdb==1.4.1
+
+Usage:
+PYTHONPATH=/work/python-packages python3 your_script.py
+
+Note:
+DuckDB is installed in the Pod's ephemeral /work volume.
+Reinstall after recreating the Pod.
