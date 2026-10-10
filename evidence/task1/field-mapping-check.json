@@ -4,7 +4,7 @@
   "sample_json_rows": 3,
   "mapping_count": 7,
   "validation_scope": "field_presence_only",
-  "semantic_validation": "NOT_TESTED",
+  "semantic_validation": "PARTIAL",
   "checks": [
     {
       "csv_field": "record_id",
@@ -56,5 +56,82 @@
       "status": "PASS"
     }
   ],
-  "status": "PASS"
+  "status": "PASS",
+  "csv_reading_analysis": {
+    "source_object": "observations_a.csv",
+    "field": "reading",
+    "total_rows": 5000,
+    "present_rows": 4900,
+    "missing_rows": 100,
+    "missing_percentage": 2.0,
+    "policy": "preserve_missing_values_in_raw_envelopes"
+  },
+  "contract_validation_summary": {
+    "timestamp_format": "YYYY-MM-DDTHH:MM:SSZ",
+    "csv": {
+      "total_rows": 5000,
+      "invalid_event_time": 40,
+      "invalid_ingest_time": 20,
+      "rows_with_either_invalid_time": 60,
+      "unsupported_unit_K_or_k": 40,
+      "missing_reading": 100
+    },
+    "jsonl": {
+      "valid_json_rows": 5200,
+      "malformed_json_rows": 5,
+      "invalid_event_time": 0,
+      "invalid_ingest_time": 0,
+      "rows_with_either_invalid_time": 0,
+      "unsupported_unit_K_or_k": 0
+    },
+    "unit_normalization": {
+      "operations": [
+        "trim",
+        "uppercase"
+      ],
+      "supported_units": [
+        "C",
+        "F"
+      ],
+      "lowercase_c_f_normalizable": true,
+      "K_or_k_unsupported": true
+    },
+    "validation_scope": "aggregate_contract_checks",
+    "semantic_validation": "PARTIAL"
+  },
+  "field_semantic_checks": {
+    "record_id": {
+      "rule": "trim + uppercase; ^R[0-9]{6}$",
+      "csv_invalid": 20,
+      "jsonl_invalid": 0
+    },
+    "sensor_id": {
+      "rule": "trim + uppercase; nonempty",
+      "csv_missing": 0,
+      "jsonl_missing": 0
+    },
+    "temperature": {
+      "csv_missing": 100,
+      "jsonl_missing": 10,
+      "csv_nonnumeric": 60,
+      "jsonl_nonnumeric": 0,
+      "csv_nonfinite": 0,
+      "jsonl_nonfinite": 0,
+      "csv_unsupported_unit_after_prior_checks": 40,
+      "csv_out_of_range_after_prior_checks": 40,
+      "note": "Counts are sequential checks, not independent error totals."
+    },
+    "operator": {
+      "csv_total": 5000,
+      "csv_present": 4000,
+      "csv_missing": 1000,
+      "jsonl_total": 5200,
+      "jsonl_present": 5000,
+      "jsonl_missing": 200,
+      "required": false,
+      "restricted": true,
+      "excluded_from_release_contract": true
+    }
+  },
+  "validation_note": "Field mappings and aggregate contract properties checked. No row-by-row cross-source equivalence or reviewer sign-off claimed."
 }

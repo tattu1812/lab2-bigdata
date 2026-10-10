@@ -63,7 +63,7 @@ Chạy:
 
 ```bash
 source env.sh
-./src/run_task1.sh
+./src/run_task1.sh task1-YYYYMMDD-01
 ```
 
 Script thực hiện:
@@ -151,7 +151,7 @@ Kết quả mong đợi: `I01: PASS`.
 I02 được thực hiện trong:
 
 ```bash
-./src/run_task1.sh
+./src/run_task1.sh task1-YYYYMMDD-01
 ```
 
 Báo cáo:
@@ -333,7 +333,7 @@ Quy trình:
 1. Xóa Pod `curate` cũ.
 2. Tạo lại Pod bằng `manifests/curate.yaml`.
 3. Chờ Pod ở trạng thái Ready.
-4. Chạy lại `./src/run_task1.sh`.
+4. Chạy lại `./src/run_task1.sh task1-YYYYMMDD-01`.
 
 Kết quả:
 
