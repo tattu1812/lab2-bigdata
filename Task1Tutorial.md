@@ -368,14 +368,15 @@ echo "$NS"
 kubectl get nodes
 kubectl get pod curate -n "$NS"
 kubectl get svc -n "$NS"
+```
 Xác nhận đang dùng đúng cluster và namespace của nhóm. Pod curate phải ở trạng thái Running và Ready.
 
 10.2. Kiểm tra Pod và dịch vụ
-
+```bash
 kubectl get pod curate -n "$NS"
 kubectl get svc -n "$NS"
 kubectl describe pod curate -n "$NS"
-
+```
 Nếu Pod chưa tồn tại, tham khảo manifests/curate.yaml và hướng dẫn triển khai hiện có của nhóm để tạo lại Pod. Không tự tạo một cấu hình mới nếu chưa đối chiếu manifest.
 
 10.3. Kiểm tra Secret S3
@@ -387,10 +388,10 @@ kubectl get secrets -n "$NS"
 Đối chiếu cấu hình Secret với manifests/curate.yaml. Không in giá trị access key hoặc secret key ra terminal log, tài liệu hoặc Git.
 
 Nếu Pod sử dụng Secret thông qua biến môi trường, kiểm tra tham chiếu mà không đọc giá trị credential:
-
+```bash
 kubectl get pod curate -n "$NS" \
   -o jsonpath='{range .spec.containers[*]}{"Container: "}{.name}{"\n"}{range .env[*]}{.name}{" -> "}{.valueFrom.secretKeyRef.name}{"/"}{.valueFrom.secretKeyRef.key}{"\n"}{end}{end}'
-
+```
 Lưu ý: Lệnh này chỉ hiển thị các tham chiếu Secret được khai báo trực tiếp trong env; nó không hiển thị đầy đủ mọi hình thức cấu hình môi trường.
 
 10.4. Kiểm tra manifest và input objects
@@ -470,8 +471,9 @@ Kiểm tra báo cáo trong evidence/task1/runs/<run_id>/ của lần chạy vừ
 12.1. I01 – Kiểm tra integrity
 
 Chạy:
-
+```bash
 python3 src/check_integrity.py
+```
 
 Kiểm tra evidence/task1/integrity-test.json. Kết quả mong đợi là PASS cho cả bốn input objects.
 
@@ -496,8 +498,9 @@ Kết quả mong đợi:
 12.3. I03 – Kiểm tra mutation
 
 Chạy:
-
+```bash
 python3 src/test_mutation.py
+```
 
 Kiểm tra evidence/task1/mutation-test.json. Kết quả mong đợi là PASS: thay đổi một byte trong bản sao phải làm thất bại kiểm tra integrity.
 
@@ -507,9 +510,10 @@ Script không chủ ý sửa file input gốc.
 
 Kiểm tra cấu hình credential và identity được yêu cầu trong đề bài trước khi chạy:
 
+```bash
 kubectl exec -n "$NS" curate -- \
   python3 /work/test_access.py
-
+```
 Lệnh trên chỉ phù hợp khi script đã được sao chép vào Pod và môi trường xác thực S3 đã được cấu hình đúng.
 
 Kết quả đã ghi nhận trước đây cho identity ingestor:
@@ -539,32 +543,33 @@ Python trong Pod.
 DuckDB có thể import được trong Python.
 
 13.2. Kiểm tra DuckDB
-
+```bash
 kubectl exec -n "$NS" curate -- \
   env PYTHONPATH=/work/python-packages \
   python3 -c "import duckdb; print(duckdb.__version__)"
-
+```
 Phiên bản đã kiểm thử là 1.4.1.
 
 Nếu chưa cài DuckDB, cài vào thư mục riêng:
 
+```bash
 kubectl exec -n "$NS" curate -- \
   python3 -m pip install \
   --no-cache-dir \
   --target /work/python-packages \
   duckdb==1.4.1
-
+```
 Nếu Pod được tạo lại, thư mục cài đặt trong Pod có thể mất và cần được chuẩn bị lại.
 
 13.3. Sao chép script và chạy SQL
-
+```bash
 kubectl cp src/check_i02_sql.py \
   "$NS/curate:/work/check_i02_sql.py"
 
 kubectl exec -n "$NS" curate -- \
   env PYTHONPATH=/work/python-packages \
   python3 /work/check_i02_sql.py
-
+```
 Kết quả mong đợi:
 
 DuckDB: 1.4.1.
@@ -583,14 +588,15 @@ Status: PASS.
 
 13.4. Lưu và xác minh SQL evidence
 
+```bash
 mkdir -p evidence/task1
 
 kubectl cp \
   "$NS/curate:/work/i02-sql-check.json" \
   evidence/task1/i02-sql-check.json
-
+```
 Xác minh:
-
+```bash
 python3 - <<'PY'
 import json
 from pathlib import Path
@@ -607,7 +613,7 @@ assert report["jsonl_parse_errors"] == 5
 
 print("I02 SQL EVIDENCE: PASS")
 PY
-
+```
 Sau khi xác minh, cập nhật evidence/evidence_index.csv theo định dạng hiện có, ghi đúng operator, reviewer nếu đã review, run ID, input version và đường dẫn evidence.
 
 Nếu cần lưu nhiều lần chạy độc lập, sử dụng quy ước thư mục run ID mà nhóm thống nhất và cập nhật evidence index tương ứng.
@@ -615,27 +621,27 @@ Nếu cần lưu nhiều lần chạy độc lập, sử dụng quy ước thư 
 ## 14. Kiểm tra contract và evidence
 
 14.1. Contract validation
-
+```bash
 python3 src/validate_contract.py
-
+```
 Kết quả mong đợi: CONTRACT VALIDATION: PASS.
 
 14.2. Kiểm tra báo cáo JSON
-
+```bash
 python3 -m json.tool evidence/task1/integrity-test.json >/dev/null
 python3 -m json.tool evidence/task1/envelope-check.json >/dev/null
 python3 -m json.tool evidence/task1/mutation-test.json >/dev/null
 python3 -m json.tool evidence/task1/access-test.json >/dev/null
 python3 -m json.tool evidence/task1/stage-report.json >/dev/null
 python3 -m json.tool evidence/task1/i02-sql-check.json >/dev/null
-
+```
 Các lệnh trên chỉ kiểm tra cú pháp JSON. Để xác nhận một kiểm thử PASS, phải kiểm tra trường status trong báo cáo tương ứng.
 
 14.3. Kiểm tra Git
-
+```bash
 git diff --check
 git status --short
-
+```
 Không commit dữ liệu raw, credential, file envelopes.jsonl hoặc evidence chứa dữ liệu nhạy cảm.
 
 
