@@ -47,10 +47,10 @@
     {
       "rule_id": "timeliness",
       "dataset_version": "research-telemetry-v1",
-      "cohort": "W",
+      "cohort": "W_TEMPORAL_VALID",
       "numerator": 9690,
-      "denominator": 9960,
-      "value": 0.9728915662650602,
+      "denominator": 9890,
+      "value": 0.9797775530839231,
       "threshold": 0.95,
       "severity": "WARN",
       "status": "PASS"
@@ -58,13 +58,13 @@
     {
       "rule_id": "uniqueness",
       "dataset_version": "research-telemetry-v1",
-      "cohort": "W",
+      "cohort": "KEY_ELIGIBLE",
       "numerator": 9960,
-      "denominator": 9960,
-      "value": 1.0,
+      "denominator": 10160,
+      "value": 0.9803149606299213,
       "threshold": 1.0,
       "severity": "ERROR",
-      "status": "PASS"
+      "status": "FAIL"
     },
     {
       "rule_id": "value_validity",
