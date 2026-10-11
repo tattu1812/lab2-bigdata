@@ -1,0 +1,211 @@
+{
+  "fixture": "edge-cases-v1",
+  "raw_total": 37,
+  "curated": {
+    "observations_b.jsonl#2": {
+      "record_id": "R000002",
+      "site": "LAB-A",
+      "temperature_c": "19.50",
+      "is_late": false
+    },
+    "observations_a.csv#3": {
+      "record_id": "R000025",
+      "site": "LAB-A",
+      "temperature_c": "18.00",
+      "is_late": false
+    },
+    "observations_a.csv#4": {
+      "record_id": "R000003",
+      "site": "LAB-A",
+      "temperature_c": "21.00",
+      "is_late": false
+    },
+    "observations_a.csv#5": {
+      "record_id": "R000004",
+      "site": "LAB-A",
+      "temperature_c": "21.00",
+      "is_late": false
+    },
+    "observations_a.csv#7": {
+      "record_id": "R000005",
+      "site": "LAB-A",
+      "temperature_c": "60.00",
+      "is_late": false
+    },
+    "observations_a.csv#8": {
+      "record_id": "R000006",
+      "site": "LAB-A",
+      "temperature_c": "-30.00",
+      "is_late": false
+    },
+    "observations_a.csv#12": {
+      "record_id": "R000010",
+      "site": "LAB-A",
+      "temperature_c": "0.01",
+      "is_late": false
+    },
+    "observations_a.csv#13": {
+      "record_id": "R000011",
+      "site": "LAB-A",
+      "temperature_c": "-0.01",
+      "is_late": false
+    },
+    "observations_a.csv#14": {
+      "record_id": "R000012",
+      "site": "LAB-A",
+      "temperature_c": "21.13",
+      "is_late": false
+    },
+    "observations_b.jsonl#5": {
+      "record_id": "R000013",
+      "site": "LAB-A",
+      "temperature_c": "2.68",
+      "is_late": false
+    },
+    "observations_a.csv#15": {
+      "record_id": "R000014",
+      "site": "LAB-A",
+      "temperature_c": "20.00",
+      "is_late": false
+    },
+    "observations_a.csv#18": {
+      "record_id": "R000026",
+      "site": "LAB-B",
+      "temperature_c": "25.00",
+      "is_late": false
+    },
+    "observations_a.csv#19": {
+      "record_id": "R000017",
+      "site": "LAB-A",
+      "temperature_c": "20.00",
+      "is_late": false
+    },
+    "observations_a.csv#20": {
+      "record_id": "R000018",
+      "site": "LAB-A",
+      "temperature_c": "20.00",
+      "is_late": true
+    },
+    "observations_a.csv#21": {
+      "record_id": "R000019",
+      "site": "LAB-A",
+      "temperature_c": "20.00",
+      "is_late": true
+    }
+  },
+  "quarantine": {
+    "observations_b.jsonl#1": {
+      "stage": "WINNER",
+      "primary_reason": "UNIT",
+      "reasons": "UNIT"
+    },
+    "observations_b.jsonl#3": {
+      "stage": "PREKEY",
+      "primary_reason": "INGEST_PARSE",
+      "reasons": "INGEST_PARSE"
+    },
+    "observations_a.csv#9": {
+      "stage": "WINNER",
+      "primary_reason": "RANGE",
+      "reasons": "RANGE"
+    },
+    "observations_a.csv#10": {
+      "stage": "WINNER",
+      "primary_reason": "RANGE",
+      "reasons": "RANGE"
+    },
+    "observations_a.csv#11": {
+      "stage": "WINNER",
+      "primary_reason": "RANGE",
+      "reasons": "RANGE"
+    },
+    "observations_a.csv#16": {
+      "stage": "WINNER",
+      "primary_reason": "NUMERIC",
+      "reasons": "NUMERIC"
+    },
+    "observations_a.csv#17": {
+      "stage": "WINNER",
+      "primary_reason": "NUMERIC",
+      "reasons": "NUMERIC"
+    },
+    "observations_a.csv#22": {
+      "stage": "WINNER",
+      "primary_reason": "TIME_ORDER",
+      "reasons": "TIME_ORDER"
+    },
+    "observations_a.csv#23": {
+      "stage": "WINNER",
+      "primary_reason": "TIME_ORDER",
+      "reasons": "TIME_ORDER"
+    },
+    "observations_a.csv#24": {
+      "stage": "WINNER",
+      "primary_reason": "TIME_PARSE",
+      "reasons": "TIME_PARSE"
+    },
+    "observations_a.csv#25": {
+      "stage": "WINNER",
+      "primary_reason": "UNIT",
+      "reasons": "UNIT|REFERENCE"
+    },
+    "observations_a.csv#26": {
+      "stage": "WINNER",
+      "primary_reason": "REQUIRED",
+      "reasons": "REQUIRED"
+    },
+    "observations_a.csv#27": {
+      "stage": "WINNER",
+      "primary_reason": "REQUIRED",
+      "reasons": "REQUIRED"
+    },
+    "observations_a.csv#28": {
+      "stage": "WINNER",
+      "primary_reason": "RANGE",
+      "reasons": "RANGE|REFERENCE"
+    },
+    "observations_b.jsonl#6": {
+      "stage": "PREKEY",
+      "primary_reason": "PARSE",
+      "reasons": "PARSE"
+    },
+    "observations_a.csv#29": {
+      "stage": "PREKEY",
+      "primary_reason": "KEY",
+      "reasons": "KEY"
+    },
+    "observations_a.csv#30": {
+      "stage": "PREKEY",
+      "primary_reason": "KEY",
+      "reasons": "KEY"
+    },
+    "observations_a.csv#31": {
+      "stage": "PREKEY",
+      "primary_reason": "KEY",
+      "reasons": "KEY|INGEST_PARSE"
+    }
+  },
+  "duplicates": {
+    "observations_a.csv#1": {
+      "record_id": "R000001",
+      "reason": "SUPERSEDED",
+      "winner": "observations_b.jsonl#1"
+    },
+    "observations_a.csv#2": {
+      "record_id": "R000002",
+      "reason": "SUPERSEDED",
+      "winner": "observations_b.jsonl#2"
+    },
+    "observations_b.jsonl#4": {
+      "record_id": "R000003",
+      "reason": "SUPERSEDED",
+      "winner": "observations_a.csv#4"
+    },
+    "observations_a.csv#6": {
+      "record_id": "R000004",
+      "reason": "SUPERSEDED",
+      "winner": "observations_a.csv#5"
+    }
+  },
+  "leak_marker": "leak@example.com"
+}
