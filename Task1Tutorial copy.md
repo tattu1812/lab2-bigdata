@@ -55,8 +55,6 @@ kubectl exec -i -n "$NS" ingestor -- python3 - < src/upload_to_S3.py
 ```bash
 source env.sh
 
-kubectl exec -n "$NS" curate -- cat /work/stage-report.json
-
 kubectl config current-context
 echo "$NS"
 kubectl get pods -n "$NS"
