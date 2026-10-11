@@ -1,0 +1,17 @@
+{
+  "fixture_version": "edge-cases-v1",
+  "as_of": "2026-02-09T00:00:00Z",
+  "status": "PASS",
+  "objects": [
+    {
+      "key": "observations_a.csv",
+      "actual_sha256": "4ac895a504ea749cc014b3e62eb91222d04c10457a52dc8d1552469c6a36e590",
+      "status": "PASS"
+    },
+    {
+      "key": "observations_b.jsonl",
+      "actual_sha256": "8191864798949e10bcceeba3aefeb2a93a3eda707f3697322fc868005b598a63",
+      "status": "PASS"
+    }
+  ]
+}
