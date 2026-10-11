@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lab2-bigdata.local/schemas/catalog.schema.json",
+  "title": "Task 4 Data Catalog",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "catalog_version",
+    "run_id",
+    "datasets",
+    "artifacts"
+  ],
+  "properties": {
+    "catalog_version": {
+      "type": "string"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "datasets": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "$ref": "#/$defs/dataset"
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifact"
+      }
+    }
+  },
+  "$defs": {
+    "dataset": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "dataset_id",
+        "name",
+        "version",
+        "description",
+        "format",
+        "location",
+        "row_count",
+        "size_bytes",
+        "sha256",
+        "columns",
+        "owner",
+        "steward",
+        "source_run_id",
+        "quality_report",
+        "retention_policy",
+        "source_aliases",
+        "source_inputs",
+        "dependencies"
+      ],
+      "properties": {
+        "dataset_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "row_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "owner": {
+          "type": "string"
+        },
+        "steward": {
+          "type": "string"
+        },
+        "source_run_id": {
+          "type": "string"
+        },
+        "quality_report": {
+          "type": "string"
+        },
+        "retention_policy": {
+          "type": "string"
+        },
+        "source_aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_inputs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "required": [
+        "artifact_id",
+        "location",
+        "row_count",
+        "size_bytes",
+        "sha256"
+      ],
+      "properties": {
+        "artifact_id": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "row_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+ }
+}

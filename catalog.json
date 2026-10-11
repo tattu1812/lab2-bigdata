@@ -1,0 +1,136 @@
+{
+  "catalog_version": "1.0",
+  "run_id": "task3-20261011-01",
+  "datasets": [
+    {
+      "dataset_id": "raw",
+      "name": "Raw telemetry inputs",
+      "version": "batch-01",
+      "description": "Dữ liệu telemetry thô từ hai nguồn đầu vào",
+      "format": "csv+jsonl",
+      "location": "s3://research-raw/lab2/inputs/batch-01/",
+      "row_count": 10205,
+      "size_bytes": 1458467,
+      "sha256": "1f73d6aed112f63782481be3297afb9a334850dc28621cfe7a355cbdaf93cbac",
+      "columns": [
+        "record_id",
+        "sensor_id",
+        "event_time",
+        "ingest_time",
+        "reading",
+        "unit",
+        "operator_email",
+        "id",
+        "sensor",
+        "timestamp",
+        "arrived_at",
+        "temperature",
+        "temperature_unit",
+        "operator"
+      ],
+      "owner": "Hải Anh",
+      "steward": "Hải Anh",
+      "source_run_id": "task1-20261011-01",
+      "quality_report": "evidence/task2/quality_before.json",
+      "retention_policy": "KEEP",
+      "source_aliases": [
+        "observations_a.csv",
+        "observations_b.jsonl"
+      ],
+      "source_inputs": [
+        "qa_reference.csv",
+        "sensors.csv"
+      ],
+      "dependencies": []
+    },
+    {
+      "dataset_id": "quarantine",
+      "name": "Quarantine Records",
+      "version": "task3-20261011-01",
+      "description": "Các bản ghi bị loại khỏi dữ liệu curated",
+      "format": "csv",
+      "location": "outputs/curate/task3-20261011-01/quarantine.csv",
+      "row_count": 395,
+      "size_bytes": 47225,
+      "sha256": "2b7a219a160a71f1cbe7dbcd7c13c9f2f757b5ef75a1382849bb40e88ed3b61b",
+      "columns": [
+        "record_id",
+        "source_object",
+        "source_row",
+        "source_sha256",
+        "stage",
+        "primary_reason",
+        "reasons"
+      ],
+      "owner": "Hải Anh",
+      "steward": "Hải Anh",
+      "source_run_id": "task3-20261011-01",
+      "quality_report": "evidence/task2/quality_after.json",
+      "retention_policy": "KEEP",
+      "source_aliases": [
+        "observations_a.csv",
+        "observations_b.jsonl"
+      ],
+      "source_inputs": [
+        "qa_reference.csv",
+        "sensors.csv"
+      ],
+      "dependencies": [
+        "raw",
+        "contracts/contract.json",
+        "contracts/curation_decisions.json"
+      ]
+    },
+    {
+      "dataset_id": "curated_candidate",
+      "name": "Curated Candidate Dataset",
+      "version": "task3-20261011-01",
+      "description": "Dữ liệu telemetry sau khi áp dụng quy tắc curation",
+      "format": "parquet",
+      "location": "outputs/curate/task3-20261011-01/candidate/curated.parquet",
+      "row_count": 9610,
+      "size_bytes": 209500,
+      "sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
+      "columns": [
+        "record_id",
+        "sensor_id",
+        "site",
+        "event_time_utc",
+        "ingest_time_utc",
+        "temperature_c",
+        "is_late",
+        "source_object",
+        "source_row",
+        "source_sha256"
+      ],
+      "owner": "Hải Anh",
+      "steward": "Hải Anh",
+      "source_run_id": "task3-20261011-01",
+      "quality_report": "evidence/task2/quality_after.json",
+      "retention_policy": "KEEP",
+      "source_aliases": [
+        "observations_a.csv",
+        "observations_b.jsonl"
+      ],
+      "source_inputs": [
+        "qa_reference.csv",
+        "sensors.csv"
+      ],
+      "dependencies": [
+        "raw",
+        "contracts/contract.json",
+        "contracts/curation_decisions.json"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "duplicates",
+      "location": "outputs/curate/task3-20261011-01/duplicates.csv",
+      "row_count": 200,
+      "size_bytes": 39817,
+      "sha256": "c0c31ea812966ceb25af853c1700e865f9f0202cdb4f49c6cda32e5b1df5256c",
+      "referenced_by": "curated_candidate"
+    }
+  ]
+}
