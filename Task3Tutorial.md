@@ -121,6 +121,63 @@ C05 chỉ tính `required_completeness`, `business_key_uniqueness`, `value_valid
 
 Kết quả chạy: `evidence/task3/runs/<run_id>/curate-checks.json`.
 
+## Lệnh dùng hàng ngày
+
+```bash
+# Chuẩn bị phiên làm việc
+cd ~/lab2-bigdata && source env.sh
+
+# Kiểm tra Pod và input còn đủ (Pod bị tạo lại thì /work mất → chạy lại Task 1)
+kubectl get pod curate -n "$NS"
+kubectl exec -n "$NS" curate -- ls -lh /work/envelopes.jsonl /work/staged/sensors.csv /work/stage-report.json
+
+# Kiểm tra contract trước khi chạy
+python3 src/validate_contract.py
+sha256sum contracts/contract.json contracts/curation_decisions.json
+
+# Chạy mới (mỗi lần phải dùng run_id mới)
+./src/run_task3.sh task3-$(date +%Y%m%d)-01
+
+# Xem kết quả run gần nhất
+RUN=task3-20261011-01
+python3 -m json.tool evidence/task3/runs/$RUN/curate-checks.json | head -40
+python3 -m json.tool outputs/curate/$RUN/run-manifest.json
+cat outputs/curate/$RUN/artifact-hashes.json
+
+# Xác minh hash artifact sau khi copy/di chuyển
+sha256sum outputs/curate/$RUN/candidate/curated.parquet \
+          outputs/curate/$RUN/quarantine.csv outputs/curate/$RUN/duplicates.csv
+
+# Liệt kê các run đã có
+ls outputs/curate evidence/task3/runs
+
+# Xem nhanh quarantine / duplicates (không chứa dữ liệu nhạy cảm)
+head -5 outputs/curate/$RUN/quarantine.csv
+head -5 outputs/curate/$RUN/duplicates.csv
+cut -d, -f6 outputs/curate/$RUN/quarantine.csv | sort | uniq -c | sort -rn   # theo primary_reason
+
+# Sau khi sửa curate.sql: chạy lại fixture cục bộ và so với expected.json
+FX=tests/fixtures/edge; OUT=/tmp/curate-dev; rm -rf $OUT
+python3 src/run_curate.py --run-id dev --out-root $OUT \
+  --contract contracts/contract.json --decisions contracts/curation_decisions.json \
+  --sql src/curate.sql --envelopes $FX/envelopes.jsonl --sensors $FX/sensors.csv \
+  --stage-report $FX/stage-report.json
+python3 src/test_curate.py --run-id dev --out-root $OUT --evidence-dir $OUT/ev \
+  --contract contracts/contract.json --decisions contracts/curation_decisions.json \
+  --sql src/curate.sql --envelopes $FX/envelopes.jsonl --sensors $FX/sensors.csv \
+  --stage-report $FX/stage-report.json --fixtures $FX
+# Trên fixture: C01–C04 = PASS; C05 = FAIL (timeliness 86,7% < 95% do fixture cố ý có bản ghi trễ)
+
+# Dựng lại fixture khi đổi ca biên
+python3 src/build_edge_fixtures.py
+
+# Commit evidence (không commit outputs/ hay dữ liệu raw)
+git status --short
+git add src/curate.sql src/run_curate.py src/test_curate.py src/build_edge_fixtures.py src/run_task3.sh \
+        tests/ evidence/task3/ README.md
+git commit -m "feat(task3): curation pipeline, C01-C05 evidence"
+```
+
 ## Bàn giao
 
 - Task 2B: `outputs/curate/<run_id>/candidate/curated.parquet` → `quality_after.json`.
