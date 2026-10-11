@@ -228,15 +228,18 @@ UNION ALL
 SELECT
     'uniqueness',
     'research-telemetry-v1',
-    'W',
+    'KEY_ELIGIBLE',
     uniqueness_numerator,
-    denominator,
-    ratio(uniqueness_numerator, denominator),
+    (SELECT count(*) FROM key_eligible),
+    ratio(uniqueness_numerator, (SELECT count(*) FROM key_eligible)),
     1.0,
     'ERROR',
     CASE
-        WHEN denominator = 0 THEN 'NOT_EVALUATED'
-        WHEN ratio(uniqueness_numerator, denominator) >= 1.0 THEN 'PASS'
+        WHEN (SELECT count(*) FROM key_eligible) = 0 THEN 'NOT_EVALUATED'
+        WHEN ratio(
+            uniqueness_numerator,
+            (SELECT count(*) FROM key_eligible)
+        ) >= 1.0 THEN 'PASS'
         ELSE 'FAIL'
     END
 FROM quality_before_counts
@@ -300,15 +303,18 @@ UNION ALL
 SELECT
     'timeliness',
     'research-telemetry-v1',
-    'W',
+    'W_TEMPORAL_VALID',
     timeliness_numerator,
-    denominator,
-    ratio(timeliness_numerator, denominator),
+    temporal_consistency_numerator,
+    ratio(timeliness_numerator, temporal_consistency_numerator),
     0.95,
     'WARN',
     CASE
-        WHEN denominator = 0 THEN 'NOT_EVALUATED'
-        WHEN ratio(timeliness_numerator, denominator) >= 0.95 THEN 'PASS'
+        WHEN temporal_consistency_numerator = 0 THEN 'NOT_EVALUATED'
+        WHEN ratio(
+            timeliness_numerator,
+            temporal_consistency_numerator
+        ) >= 0.95 THEN 'PASS'
         ELSE 'FAIL'
     END
 FROM quality_before_counts;

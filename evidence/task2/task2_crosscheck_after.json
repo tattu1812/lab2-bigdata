@@ -1,0 +1,34 @@
+{
+  "raw_total": 10205,
+  "raw_distinct_physical_keys": 10205,
+  "curated_total": 9610,
+  "quarantine_total": 395,
+  "duplicates_total": 200,
+  "output_union_distinct_physical_keys": 10205,
+  "missing_from_outputs": 0,
+  "extra_in_outputs": 0,
+  "overlap": {
+    "curated_vs_quarantine": 0,
+    "curated_vs_duplicates": 0,
+    "quarantine_vs_duplicates": 0
+  },
+  "curated_distinct_record_ids": 9610,
+  "curated_duplicate_record_ids": 0,
+  "checks": {
+    "raw_physical_keys_unique": "PASS",
+    "raw_total_10205": "PASS",
+    "curated_9610": "PASS",
+    "quarantine_395": "PASS",
+    "duplicates_200": "PASS",
+    "conservation": "PASS",
+    "union_equals_raw": "PASS",
+    "missing_zero": "PASS",
+    "extra_zero": "PASS",
+    "curated_quarantine_overlap_zero": "PASS",
+    "curated_duplicates_overlap_zero": "PASS",
+    "quarantine_duplicates_overlap_zero": "PASS",
+    "curated_record_id_unique": "PASS",
+    "curated_distinct_record_ids_9610": "PASS"
+  },
+  "overall": "PASS"
+}
