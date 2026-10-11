@@ -1,0 +1,14 @@
+{
+  "test_id": "I02_SQL",
+  "engine": "DuckDB",
+  "duckdb_version": "1.4.1",
+  "input_file": "/work/envelopes.jsonl",
+  "total_envelopes": 10205,
+  "source_counts": {
+    "observations_a.csv": 5000,
+    "observations_b.jsonl": 5205
+  },
+  "duplicate_physical_keys": 0,
+  "jsonl_parse_errors": 5,
+  "status": "PASS"
+}

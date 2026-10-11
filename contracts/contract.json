@@ -1,0 +1,102 @@
+{
+  "schema_version": "research-telemetry-v1",
+  "as_of": "2026-02-09T00:00:00Z",
+  "timestamp_format": "YYYY-MM-DDTHH:MM:SSZ",
+  "normalization": {
+    "fields": [
+      "record_id",
+      "sensor_id",
+      "unit"
+    ],
+    "operations": [
+      "trim",
+      "uppercase"
+    ],
+    "missing": "null_or_blank"
+  },
+  "supported_units": [
+    "C",
+    "F"
+  ],
+  "fahrenheit_to_celsius": "(F - 32) * 5 / 9",
+  "temperature_range_c": {
+    "min": -30,
+    "max": 60
+  },
+  "temperature_validation": {
+    "finite_required": true,
+    "validate_before_rounding": true,
+    "output_type": "DECIMAL(8,2)"
+  },
+  "time_order": "event_time <= ingest_time <= as_of",
+  "late_threshold_seconds": 900,
+  "late_records_policy": "retain_if_otherwise_valid",
+  "record_id_pattern": "^R[0-9]{6}$",
+  "deduplication": {
+    "business_key": [
+      "record_id"
+    ],
+    "order": [
+      "ingest_time DESC",
+      "source_object ASC",
+      "source_row ASC"
+    ]
+  },
+  "prekey_reason_precedence": [
+    "PARSE",
+    "KEY",
+    "INGEST_PARSE"
+  ],
+  "row_reason_precedence": [
+    "REQUIRED",
+    "NUMERIC",
+    "UNIT",
+    "RANGE",
+    "TIME_PARSE",
+    "TIME_ORDER",
+    "REFERENCE"
+  ],
+  "privacy": {
+    "restricted_fields": [
+      "operator_email",
+      "raw_payload"
+    ],
+    "operator_email_required": false
+  },
+  "release_thresholds": {
+    "required_completeness": 1.0,
+    "business_key_uniqueness": 1.0,
+    "value_validity": 1.0,
+    "sensor_consistency": 1.0,
+    "chronology": 1.0,
+    "timeliness": 0.95,
+    "qa_coverage": 1.0,
+    "qa_agreement": 0.95
+  },
+  "released_columns": [
+    "record_id",
+    "sensor_id",
+    "site",
+    "event_time_utc",
+    "ingest_time_utc",
+    "temperature_c",
+    "is_late",
+    "source_object",
+    "source_row",
+    "source_sha256"
+  ],
+  "primary_reason_precedence": [
+    "PARSE",
+    "KEY",
+    "INGEST_PARSE",
+    "REQUIRED",
+    "NUMERIC",
+    "UNIT",
+    "RANGE",
+    "TIME_PARSE",
+    "TIME_ORDER",
+    "REFERENCE"
+  ],
+  "invalid_winner_policy": "quarantine_no_fallback",
+  "qa_tolerance_c": 0.05
+}
