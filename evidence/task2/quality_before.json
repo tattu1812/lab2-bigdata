@@ -1,0 +1,81 @@
+{
+  "dataset_version": "research-telemetry-v1",
+  "phase": "before_curation",
+  "population_summary": {
+    "raw_total": 10205,
+    "parse_failures": 5,
+    "key_excluded": 20,
+    "ingest_parse_failures": 20,
+    "key_eligible": 10160,
+    "duplicates": 200,
+    "winners_W": 9960
+  },
+  "metrics": [
+    {
+      "rule_id": "completeness",
+      "dataset_version": "research-telemetry-v1",
+      "cohort": "W",
+      "numerator": 9850,
+      "denominator": 9960,
+      "value": 0.9889558232931727,
+      "threshold": 1.0,
+      "severity": "ERROR",
+      "status": "FAIL"
+    },
+    {
+      "rule_id": "referential_integrity",
+      "dataset_version": "research-telemetry-v1",
+      "cohort": "W",
+      "numerator": 9930,
+      "denominator": 9960,
+      "value": 0.9969879518072289,
+      "threshold": 1.0,
+      "severity": "ERROR",
+      "status": "FAIL"
+    },
+    {
+      "rule_id": "temporal_consistency",
+      "dataset_version": "research-telemetry-v1",
+      "cohort": "W",
+      "numerator": 9890,
+      "denominator": 9960,
+      "value": 0.9929718875502008,
+      "threshold": 1.0,
+      "severity": "ERROR",
+      "status": "FAIL"
+    },
+    {
+      "rule_id": "timeliness",
+      "dataset_version": "research-telemetry-v1",
+      "cohort": "W",
+      "numerator": 9690,
+      "denominator": 9960,
+      "value": 0.9728915662650602,
+      "threshold": 0.95,
+      "severity": "WARN",
+      "status": "PASS"
+    },
+    {
+      "rule_id": "uniqueness",
+      "dataset_version": "research-telemetry-v1",
+      "cohort": "W",
+      "numerator": 9960,
+      "denominator": 9960,
+      "value": 1.0,
+      "threshold": 1.0,
+      "severity": "ERROR",
+      "status": "PASS"
+    },
+    {
+      "rule_id": "value_validity",
+      "dataset_version": "research-telemetry-v1",
+      "cohort": "W",
+      "numerator": 9710,
+      "denominator": 9960,
+      "value": 0.9748995983935743,
+      "threshold": 1.0,
+      "severity": "ERROR",
+      "status": "FAIL"
+    }
+  ]
+}
