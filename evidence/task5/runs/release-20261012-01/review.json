@@ -1,0 +1,12 @@
+{
+  "reviewer": "Hải Anh",
+  "reviewer_role": "Task 4 – Metadata, Lineage, Retention",
+  "curation_author": "Tú",
+  "decision": "APPROVE",
+  "reason": "Gate tự tính lại PASS 9/9 trên bundle mới (evidence/task5/runs/release-20261012-01-prereview/gate-report.json); 7 ca đột biến P02–P08 đều bị REJECT; kiểm tra chéo QA khớp quality_after (coverage 100/100, agreement 95/100); hash candidate khớp catalog.json và run-record.json.",
+  "run_id": "task3-20261012-01",
+  "release_id": "release-20261012-01",
+  "candidate_sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
+  "reviewed_at": "2026-10-12T08:40:00Z",
+  "recorded_by": "Trung"
+}

@@ -1,0 +1,108 @@
+{
+  "cross_check": "A (Tú) → D (Hải Anh): chạy lại L02 độc lập từ byte nguồn",
+  "record_id": "R001001",
+  "prediction": "R001001 có 2 phiên bản; bản observations_b.jsonl dòng 5101 tiếp nhận muộn hơn nên thắng, temperature_c = 19.10 °C, is_late = false, site = zone-1; bản observations_a.csv dòng 1001 là SUPERSEDED.",
+  "checks": [
+    {
+      "check": "observations_b.jsonl:5101 sha256 = trusted manifest",
+      "expected": "3072ad0b725ea3763ad4d1a7c744465f997614892dd1460f9cd815094ec61b70",
+      "observed": "3072ad0b725ea3763ad4d1a7c744465f997614892dd1460f9cd815094ec61b70",
+      "status": "PASS"
+    },
+    {
+      "check": "observations_b.jsonl:5101 sha256 = trace",
+      "expected": "3072ad0b725ea3763ad4d1a7c744465f997614892dd1460f9cd815094ec61b70",
+      "observed": "3072ad0b725ea3763ad4d1a7c744465f997614892dd1460f9cd815094ec61b70",
+      "status": "PASS"
+    },
+    {
+      "check": "observations_b.jsonl:5101 fields = trace",
+      "expected": {
+        "record_id": "R001001",
+        "sensor_id": " s01 ",
+        "event_time": "2026-02-02T08:20:30Z",
+        "ingest_time": "2026-02-02T08:23:30Z",
+        "reading": "19.10",
+        "unit": " c "
+      },
+      "observed": {
+        "record_id": "R001001",
+        "sensor_id": " s01 ",
+        "event_time": "2026-02-02T08:20:30Z",
+        "ingest_time": "2026-02-02T08:23:30Z",
+        "reading": "19.10",
+        "unit": " c "
+      },
+      "status": "PASS"
+    },
+    {
+      "check": "observations_a.csv:1001 sha256 = trusted manifest",
+      "expected": "5157418915d867980fac8d84551a8b856bba1669ca2e33cef91a15ee82101aea",
+      "observed": "5157418915d867980fac8d84551a8b856bba1669ca2e33cef91a15ee82101aea",
+      "status": "PASS"
+    },
+    {
+      "check": "observations_a.csv:1001 sha256 = trace",
+      "expected": "5157418915d867980fac8d84551a8b856bba1669ca2e33cef91a15ee82101aea",
+      "observed": "5157418915d867980fac8d84551a8b856bba1669ca2e33cef91a15ee82101aea",
+      "status": "PASS"
+    },
+    {
+      "check": "observations_a.csv:1001 fields = trace",
+      "expected": {
+        "record_id": "R001001",
+        "sensor_id": " s01 ",
+        "event_time": "2026-02-02T08:20:30Z",
+        "ingest_time": "2026-02-02T08:21:30Z",
+        "reading": "18.10",
+        "unit": " c "
+      },
+      "observed": {
+        "record_id": "R001001",
+        "sensor_id": " s01 ",
+        "event_time": "2026-02-02T08:20:30Z",
+        "ingest_time": "2026-02-02T08:21:30Z",
+        "reading": "18.10",
+        "unit": " c "
+      },
+      "status": "PASS"
+    },
+    {
+      "check": "winner (ingest DESC, object ASC, row ASC)",
+      "expected": [
+        "observations_b.jsonl",
+        5101
+      ],
+      "observed": [
+        "observations_b.jsonl",
+        5101
+      ],
+      "status": "PASS"
+    },
+    {
+      "check": "temperature_c",
+      "expected": "19.10",
+      "observed": "19.10",
+      "status": "PASS"
+    },
+    {
+      "check": "is_late",
+      "expected": false,
+      "observed": false,
+      "status": "PASS"
+    },
+    {
+      "check": "site",
+      "expected": "zone-1",
+      "observed": "zone-1",
+      "status": "PASS"
+    },
+    {
+      "check": "source_sha256 trong curated",
+      "expected": "3072ad0b725ea3763ad4d1a7c744465f997614892dd1460f9cd815094ec61b70",
+      "observed": "3072ad0b725ea3763ad4d1a7c744465f997614892dd1460f9cd815094ec61b70",
+      "status": "PASS"
+    }
+  ],
+  "status": "PASS"
+}

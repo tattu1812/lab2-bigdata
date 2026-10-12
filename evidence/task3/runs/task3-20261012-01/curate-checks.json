@@ -1,0 +1,212 @@
+{
+  "run_id": "task3-20261012-01",
+  "status": "PASS",
+  "checks": {
+    "C01": {
+      "status": "PASS",
+      "details": {
+        "raw_total": 10205,
+        "raw_unique_keys": 10205,
+        "curated": 9610,
+        "quarantine": 395,
+        "duplicates": 200,
+        "sum": 10205,
+        "overlap": 0,
+        "missing_from_outputs": 0,
+        "unknown_in_outputs": 0,
+        "task2_baseline": {
+          "task2_raw_total": 10205,
+          "run_raw_total": 10205,
+          "task2_prekey_rejected": 45,
+          "run_prekey_rejected": 45,
+          "task2_duplicates": 200,
+          "run_duplicates": 200,
+          "task2_W": 9960,
+          "run_W": 9960,
+          "match": true
+        }
+      }
+    },
+    "C02": {
+      "status": "PASS",
+      "details": {
+        "files": {
+          "quarantine.csv": {
+            "original": "2b7a219a160a71f1cbe7dbcd7c13c9f2f757b5ef75a1382849bb40e88ed3b61b",
+            "reversed": "2b7a219a160a71f1cbe7dbcd7c13c9f2f757b5ef75a1382849bb40e88ed3b61b",
+            "equal": true
+          },
+          "duplicates.csv": {
+            "original": "c0c31ea812966ceb25af853c1700e865f9f0202cdb4f49c6cda32e5b1df5256c",
+            "reversed": "c0c31ea812966ceb25af853c1700e865f9f0202cdb4f49c6cda32e5b1df5256c",
+            "equal": true
+          },
+          "curated.parquet": {
+            "content_original": "a9d993dff20eae6995817ab4cf8cf7bf451404706722e00fbbf3aec73e777318",
+            "content_reversed": "a9d993dff20eae6995817ab4cf8cf7bf451404706722e00fbbf3aec73e777318",
+            "content_equal": true,
+            "file_sha256_equal": true
+          }
+        }
+      }
+    },
+    "C03": {
+      "status": "PASS",
+      "details": {
+        "columns": [
+          [
+            "record_id",
+            "VARCHAR"
+          ],
+          [
+            "sensor_id",
+            "VARCHAR"
+          ],
+          [
+            "site",
+            "VARCHAR"
+          ],
+          [
+            "event_time_utc",
+            "TIMESTAMP"
+          ],
+          [
+            "ingest_time_utc",
+            "TIMESTAMP"
+          ],
+          [
+            "temperature_c",
+            "DECIMAL(8,2)"
+          ],
+          [
+            "is_late",
+            "BOOLEAN"
+          ],
+          [
+            "source_object",
+            "VARCHAR"
+          ],
+          [
+            "source_row",
+            "BIGINT"
+          ],
+          [
+            "source_sha256",
+            "VARCHAR"
+          ]
+        ],
+        "problems": []
+      }
+    },
+    "C04": {
+      "status": "PASS",
+      "details": {
+        "cases": {
+          "EC1_invalid_winner_no_fallback": [
+            "R000001",
+            "R000002",
+            "R000025"
+          ],
+          "EC2_tie_break": [
+            "R000003",
+            "R000004"
+          ],
+          "EC3_unit_range_rounding": [
+            "R000005",
+            "R000006",
+            "R000007",
+            "R000008",
+            "R000009",
+            "R000010",
+            "R000011",
+            "R000012",
+            "R000013",
+            "R000014",
+            "R000015",
+            "R000016",
+            "R000026"
+          ],
+          "EC4_time_late_multireason_prekey": [
+            "R000017",
+            "R000018",
+            "R000019",
+            "R000020",
+            "R000021",
+            "R000022",
+            "R000023",
+            "R000024",
+            "R000027",
+            "R000028",
+            "PARSE",
+            "KEY",
+            "KEY|INGEST_PARSE"
+          ]
+        },
+        "counts": {
+          "curated": 15,
+          "quarantine": 18,
+          "duplicates": 4
+        },
+        "problems": []
+      }
+    },
+    "C05": {
+      "status": "PASS",
+      "details": {
+        "cohort": "curated",
+        "is_late_consistent": true,
+        "metrics": [
+          {
+            "rule_id": "required_completeness",
+            "numerator": 9610,
+            "denominator": 9610,
+            "value": 1.0,
+            "threshold": 1.0,
+            "status": "PASS"
+          },
+          {
+            "rule_id": "business_key_uniqueness",
+            "numerator": 9610,
+            "denominator": 9610,
+            "value": 1.0,
+            "threshold": 1.0,
+            "status": "PASS"
+          },
+          {
+            "rule_id": "value_validity",
+            "numerator": 9610,
+            "denominator": 9610,
+            "value": 1.0,
+            "threshold": 1.0,
+            "status": "PASS"
+          },
+          {
+            "rule_id": "sensor_consistency",
+            "numerator": 9610,
+            "denominator": 9610,
+            "value": 1.0,
+            "threshold": 1.0,
+            "status": "PASS"
+          },
+          {
+            "rule_id": "chronology",
+            "numerator": 9610,
+            "denominator": 9610,
+            "value": 1.0,
+            "threshold": 1.0,
+            "status": "PASS"
+          },
+          {
+            "rule_id": "timeliness",
+            "numerator": 9410,
+            "denominator": 9610,
+            "value": 0.9791883454734651,
+            "threshold": 0.95,
+            "status": "PASS"
+          }
+        ],
+        "note": "qa_coverage/qa_agreement thu\u1ed9c Task 2B (qa_reference.csv), kh\u00f4ng t\u00ednh \u1edf \u0111\u00e2y"
+      }
+    }
+  }
+}

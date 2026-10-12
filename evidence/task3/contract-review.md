@@ -14,6 +14,19 @@ Lưu ý: dòng `task1-20261010-02` trong `evidence/evidence_index.csv` ghi hash 
 File hiện tại đã thay đổi so với hash đó (working tree đang `modified`); mọi run Task 3
 ghi lại hash thực dùng trong `run-manifest.json` (`inputs.contract_sha256`).
 
+**Đính chính (Trung, kiểm tra chéo cuối 2026-10-12):** hai hash trong bảng trên được
+tính trên bản checkout Windows (xuống dòng CRLF). Nội dung không đổi; bản LF trong git
+có hash như sau, và trùng `run-manifest.json` của `task3-20261012-01`/`-02` cũng như
+`evidence/task4/run-record.json`:
+
+| Tệp (LF) | SHA-256 |
+|---|---|
+| `contracts/contract.json` | `af08336397eaf39f3fbf9dee23f5c257b50d0d6b4398b7dd8ffa47c6b1117a26` |
+| `contracts/curation_decisions.json` | `086a763f210dfdeaa5fd8537eb359149eff2c3f008c5536e897da9bed792ae1d` |
+
+Kiểm lại: `sed 's/$/\r/' contracts/contract.json | sha256sum` cho ra `a655a0ca…`. Vậy
+contract **không** thay đổi so với hash `af083363…` trong evidence index.
+
 ## Checklist review
 
 | # | Nội dung contract | Cách `curate.sql` / runner áp dụng | Kết quả |

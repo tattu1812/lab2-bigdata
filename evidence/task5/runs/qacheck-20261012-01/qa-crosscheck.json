@@ -1,0 +1,55 @@
+{
+  "check_id": "QA_CROSSCHECK",
+  "tolerance_c": "0.05",
+  "qa_total": 100,
+  "qa_covered": 100,
+  "qa_agreed": 95,
+  "max_abs_diff": "8.00",
+  "pairs_exactly_at_tolerance": 0,
+  "missing_qa_ids": [],
+  "disagreeing": [
+    {
+      "record_id": "R000810",
+      "temperature_c": "27.00",
+      "reference_c": "19.00",
+      "abs_diff": "8.00"
+    },
+    {
+      "record_id": "R000811",
+      "temperature_c": "27.10",
+      "reference_c": "19.10",
+      "abs_diff": "8.00"
+    },
+    {
+      "record_id": "R000812",
+      "temperature_c": "27.20",
+      "reference_c": "19.20",
+      "abs_diff": "8.00"
+    },
+    {
+      "record_id": "R000813",
+      "temperature_c": "27.30",
+      "reference_c": "19.30",
+      "abs_diff": "8.00"
+    },
+    {
+      "record_id": "R000814",
+      "temperature_c": "27.40",
+      "reference_c": "19.40",
+      "abs_diff": "8.00"
+    }
+  ],
+  "comparison_with_quality_after": {
+    "qa_coverage": {
+      "crosscheck": "100/100",
+      "quality_after": "100/100",
+      "match": true
+    },
+    "qa_agreement": {
+      "crosscheck": "95/100",
+      "quality_after": "95/100",
+      "match": true
+    }
+  },
+  "status": "PASS"
+}

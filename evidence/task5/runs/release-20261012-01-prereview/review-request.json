@@ -1,0 +1,17 @@
+{
+  "release_id": "release-20261012-01",
+  "run_id": "task3-20261012-01",
+  "candidate_sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
+  "gate_decision": "PASS",
+  "gate_passed": "9/9",
+  "gate_report": "evidence/task5/runs/release-20261012-01-prereview/gate-report.json",
+  "review_template": {
+    "reviewer": "<tên người review, KHÔNG phải tác giả curation>",
+    "curation_author": "Tú",
+    "decision": "<APPROVE | REJECT>",
+    "reason": "<lý do>",
+    "run_id": "task3-20261012-01",
+    "candidate_sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
+    "reviewed_at": "<YYYY-MM-DDTHH:MM:SSZ>"
+  }
+}

@@ -20,7 +20,7 @@ Các deliverable:
 Run curation thật đang dùng:
 
 ```bash
-RUN=task3-20261011-01
+RUN=task3-20261012-01
 BASE="outputs/curate/$RUN"
 ```
 
@@ -33,9 +33,9 @@ sau curation.
 Artifact Task 3:
 
 ```text
-outputs/curate/task3-20261011-01/candidate/curated.parquet
-outputs/curate/task3-20261011-01/quarantine.csv
-outputs/curate/task3-20261011-01/duplicates.csv
+outputs/curate/task3-20261012-01/candidate/curated.parquet
+outputs/curate/task3-20261012-01/quarantine.csv
+outputs/curate/task3-20261012-01/duplicates.csv
 ```
 
 Metadata đã xác nhận:

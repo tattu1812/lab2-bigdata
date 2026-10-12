@@ -1,0 +1,14 @@
+{
+  "candidate/curated.parquet": {
+    "sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
+    "bytes": 209500
+  },
+  "quarantine.csv": {
+    "sha256": "2b7a219a160a71f1cbe7dbcd7c13c9f2f757b5ef75a1382849bb40e88ed3b61b",
+    "bytes": 47225
+  },
+  "duplicates.csv": {
+    "sha256": "c0c31ea812966ceb25af853c1700e865f9f0202cdb4f49c6cda32e5b1df5256c",
+    "bytes": 39817
+  }
+}
