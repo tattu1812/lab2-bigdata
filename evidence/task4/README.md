@@ -1,0 +1,11 @@
+# Task 4 — Metadata, lineage và retention
+
+Bộ dữ liệu telemetry này là dữ liệu tổng hợp phục vụ học tập, không phải dữ liệu quan trắc để ra quyết định vận hành. Task 4 mô tả các artifact do Task 1–3 tạo ra, ghi lại nguồn gốc xử lý và mô phỏng quyết định lưu giữ. Run đang được mô tả là `task3-20261012-01`; chủ sở hữu và đầu mối metadata là Vũ Hải Anh. Candidate hiện chờ review, chưa phải approved release.
+
+Hai nguồn quan sát gốc là `observations_a.csv` và `observations_b.jsonl`, tổng cộng 10.205 bản ghi. Khóa logic là `record_id`; khóa truy vết vật lý gồm `source_object`, `source_row` và `source_sha256`. Registry `sensors.csv` cung cấp `site`. Bộ `qa_reference.csv` gồm 100 mẫu chỉ dùng để đánh giá chất lượng sau curation, không dùng để tính `temperature_c`.
+
+Timestamp được phân tích theo UTC; mốc đánh giá cố định `AS_OF` là `2026-02-09T00:00:00Z`. Nhiệt độ nguồn ở Celsius hoặc Fahrenheit được đổi sang Celsius và làm tròn hai chữ số theo `ROUND_HALF_UP`. Quy tắc curation và deduplication nằm trong [contract](../../contracts/contract.json), [decisions](../../contracts/curation_decisions.json) và `src/curate.sql`. Bản thắng được chọn theo thời điểm ingest giảm dần, rồi tên nguồn và số dòng tăng dần; bản thua vào duplicate ledger. Run này tạo 9.610 dòng candidate, 395 dòng quarantine và 200 dòng duplicate.
+
+[Catalog](../../catalog.json) ghi schema, vị trí, số dòng, hash, owner và retention. [Quality report](runs/task3-20261012-01/quality_after.json) có tám chỉ số với các cohort riêng; kết quả không đồng nghĩa mọi dòng đều đúng hoặc đúng thời hạn. Raw có trường thông tin người vận hành nên bị hạn chế truy cập; candidate không chứa email và chỉ được dùng cho mục đích học tập. [Lineage](runs/task3-20261012-01/lineage.jsonl), [run-record](runs/task3-20261012-01/run-record.json), [truy vết dòng](runs/task3-20261012-01/row-traces.json) và [retention dry-run](runs/task3-20261012-01/retention-plan.json) là bằng chứng kèm theo. Không có thao tác xóa thật.
+
+Môi trường chạy dùng Python 3.12.15, DuckDB 1.4.1 và image digest ghi trong run-record. Để tái lập, chuẩn bị pod và input theo Task 1, chạy `source env.sh`, rồi dùng một run ID mới với `python src/run_task4_curate.py <run-id>`. Kiểm tra catalog bằng `python src/validate_catalog.py`; xem chi tiết trong [Task4Tutorial](../../Task4Tutorial.md).

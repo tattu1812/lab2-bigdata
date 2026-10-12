@@ -1,132 +1,201 @@
 {
   "catalog_version": "1.0",
-  "run_id": "task3-20261011-01",
+  "run_id": "task3-20261012-01",
   "datasets": [
     {
       "dataset_id": "raw",
-      "name": "Raw telemetry inputs",
-      "version": "batch-01",
-      "description": "Dữ liệu telemetry thô từ hai nguồn đầu vào",
-      "format": "csv+jsonl",
-      "location": "s3://research-raw/lab2/inputs/batch-01/",
+      "title": "Raw telemetry observations",
+      "purpose": "Lưu hai nguồn quan sát gốc để truy xuất và tái lập quá trình curation.",
+      "owner": "Hải Anh",
+      "steward": "Hải Anh",
+      "classification": "RESTRICTED",
+      "allowed_use": "Synthetic teaching data only; không công bố dữ liệu thô hoặc thông tin người vận hành.",
+      "location": [
+        {
+          "uri": "s3://research-raw/lab2/inputs/batch-01/observations_a.csv"
+        },
+        {
+          "uri": "s3://research-raw/lab2/inputs/batch-01/observations_b.jsonl"
+        }
+      ],
+      "schema_version": "research-telemetry-v1",
+      "columns": [
+        {"name": "record_id", "type": "VARCHAR", "meaning": "Mã bản ghi trong nguồn CSV", "unit": null, "nullable": true},
+        {"name": "sensor_id", "type": "VARCHAR", "meaning": "Mã cảm biến trong nguồn CSV", "unit": null, "nullable": true},
+        {"name": "event_time", "type": "VARCHAR", "meaning": "Thời điểm đo gốc trong nguồn CSV", "unit": "UTC", "nullable": true},
+        {"name": "ingest_time", "type": "VARCHAR", "meaning": "Thời điểm nhận gốc trong nguồn CSV", "unit": "UTC", "nullable": true},
+        {"name": "reading", "type": "VARCHAR", "meaning": "Giá trị nhiệt độ gốc trong nguồn CSV", "unit": "Theo cột unit", "nullable": true},
+        {"name": "unit", "type": "VARCHAR", "meaning": "Đơn vị nhiệt độ gốc trong nguồn CSV", "unit": null, "nullable": true},
+        {"name": "operator_email", "type": "VARCHAR", "meaning": "Email người vận hành; trường hạn chế truy cập", "unit": null, "nullable": true},
+        {"name": "id", "type": "VARCHAR", "meaning": "Mã bản ghi trong nguồn JSONL", "unit": null, "nullable": true},
+        {"name": "sensor", "type": "VARCHAR", "meaning": "Mã cảm biến trong nguồn JSONL", "unit": null, "nullable": true},
+        {"name": "timestamp", "type": "VARCHAR", "meaning": "Thời điểm đo gốc trong nguồn JSONL", "unit": "UTC", "nullable": true},
+        {"name": "arrived_at", "type": "VARCHAR", "meaning": "Thời điểm nhận gốc trong nguồn JSONL", "unit": "UTC", "nullable": true},
+        {"name": "temperature", "type": "VARCHAR", "meaning": "Giá trị nhiệt độ gốc trong nguồn JSONL", "unit": "Theo cột temperature_unit", "nullable": true},
+        {"name": "temperature_unit", "type": "VARCHAR", "meaning": "Đơn vị nhiệt độ gốc trong nguồn JSONL", "unit": null, "nullable": true},
+        {"name": "operator", "type": "VARCHAR", "meaning": "Thông tin người vận hành trong nguồn JSONL; hạn chế truy cập", "unit": null, "nullable": true}
+      ],
+      "as_of": "2026-02-09T00:00:00Z",
       "row_count": 10205,
-      "size_bytes": 1458467,
-      "sha256": "1f73d6aed112f63782481be3297afb9a334850dc28621cfe7a355cbdaf93cbac",
-      "columns": [
-        "record_id",
-        "sensor_id",
-        "event_time",
-        "ingest_time",
-        "reading",
-        "unit",
-        "operator_email",
-        "id",
-        "sensor",
-        "timestamp",
-        "arrived_at",
-        "temperature",
-        "temperature_unit",
-        "operator"
-      ],
-      "owner": "Hải Anh",
-      "steward": "Hải Anh",
-      "source_run_id": "task1-20261011-01",
+      "input_manifest_sha256": "77dacfdb5a8b4e82fb2316990972de731a51b31f9fc052d739d0dea78e992331",
+      "contract_sha256": "a655a0ca42f9f847c77fca1060d88c76e7aed21e36994aa3d71fd54c26ce5d6d",
+      "code_sha256": "b03f9865f0df081469287850510281702a19011d1c6804440ac12bdaa819f0b0",
       "quality_report": "evidence/task2/quality_before.json",
-      "retention_policy": "KEEP",
-      "source_aliases": [
-        "observations_a.csv",
-        "observations_b.jsonl"
-      ],
-      "source_inputs": [
-        "qa_reference.csv",
-        "sensors.csv"
-      ],
-      "dependencies": []
-    },
-    {
-      "dataset_id": "quarantine",
-      "name": "Quarantine Records",
-      "version": "task3-20261011-01",
-      "description": "Các bản ghi bị loại khỏi dữ liệu curated",
-      "format": "csv",
-      "location": "outputs/curate/task3-20261011-01/quarantine.csv",
-      "row_count": 395,
-      "size_bytes": 47225,
-      "sha256": "2b7a219a160a71f1cbe7dbcd7c13c9f2f757b5ef75a1382849bb40e88ed3b61b",
-      "columns": [
-        "record_id",
-        "source_object",
-        "source_row",
-        "source_sha256",
-        "stage",
-        "primary_reason",
-        "reasons"
-      ],
-      "owner": "Hải Anh",
-      "steward": "Hải Anh",
-      "source_run_id": "task3-20261011-01",
-      "quality_report": "evidence/task2/quality_after.json",
-      "retention_policy": "KEEP",
-      "source_aliases": [
-        "observations_a.csv",
-        "observations_b.jsonl"
-      ],
-      "source_inputs": [
-        "qa_reference.csv",
-        "sensors.csv"
-      ],
-      "dependencies": [
-        "raw",
-        "contracts/contract.json",
-        "contracts/curation_decisions.json"
+      "retention": {
+        "days": 30,
+        "start_basis": "retrieval_time",
+        "hold": false,
+        "dependency_policy": "Giữ lại nếu một approved release đang hoạt động phụ thuộc vào dữ liệu này.",
+        "dependent_release_ids": [],
+        "action": "dry-run only"
+      },
+      "provenance": {
+        "job_name": "curate-task3-20261012-01",
+        "run_id": "task3-20261012-01",
+        "source_run_id": "task1-20261012-01",
+        "role": "input"
+      },
+      "format": "csv+jsonl",
+      "size_bytes": 1458467,
+      "source_aliases": {
+        "observations_a.csv": {
+          "record_id": "record_id",
+          "sensor_id": "sensor_id",
+          "event_time": "event_time",
+          "ingest_time": "ingest_time",
+          "reading": "reading",
+          "unit": "unit"
+        },
+        "observations_b.jsonl": {
+          "record_id": "id",
+          "sensor_id": "sensor",
+          "event_time": "timestamp",
+          "ingest_time": "arrived_at",
+          "reading": "temperature",
+          "unit": "temperature_unit"
+        }
+      },
+      "source_objects": [
+        {
+          "name": "observations_a.csv",
+          "row_count": 5000,
+          "size_bytes": 421028,
+          "sha256": "5157418915d867980fac8d84551a8b856bba1669ca2e33cef91a15ee82101aea"
+        },
+        {
+          "name": "observations_b.jsonl",
+          "row_count": 5205,
+          "size_bytes": 1037439,
+          "sha256": "3072ad0b725ea3763ad4d1a7c744465f997614892dd1460f9cd815094ec61b70"
+        }
       ]
     },
     {
-      "dataset_id": "curated_candidate",
-      "name": "Curated Candidate Dataset",
-      "version": "task3-20261011-01",
-      "description": "Dữ liệu telemetry sau khi áp dụng quy tắc curation",
-      "format": "parquet",
-      "location": "outputs/curate/task3-20261011-01/candidate/curated.parquet",
-      "row_count": 9610,
-      "size_bytes": 209500,
-      "sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
-      "columns": [
-        "record_id",
-        "sensor_id",
-        "site",
-        "event_time_utc",
-        "ingest_time_utc",
-        "temperature_c",
-        "is_late",
-        "source_object",
-        "source_row",
-        "source_sha256"
-      ],
+      "dataset_id": "quarantine",
+      "title": "Quarantined observations",
+      "purpose": "Lưu các bản ghi không đạt quy tắc curation cùng lý do bị loại.",
       "owner": "Hải Anh",
       "steward": "Hải Anh",
-      "source_run_id": "task3-20261011-01",
-      "quality_report": "evidence/task2/quality_after.json",
-      "retention_policy": "KEEP",
-      "source_aliases": [
-        "observations_a.csv",
-        "observations_b.jsonl"
+      "classification": "RESTRICTED",
+      "allowed_use": "Synthetic teaching data only; chỉ dùng để kiểm tra lỗi và truy vết, không phát hành cho analyst.",
+      "location": [
+        {
+          "uri": "file:///home/haianhvu_08/lab2-bigdata/outputs/curate/task3-20261012-01/quarantine.csv"
+        }
       ],
-      "source_inputs": [
-        "qa_reference.csv",
-        "sensors.csv"
+      "schema_version": "research-telemetry-v1",
+      "columns": [
+        {"name": "record_id", "type": "VARCHAR", "meaning": "Mã bản ghi nếu đọc được từ nguồn", "unit": null, "nullable": true},
+        {"name": "source_object", "type": "VARCHAR", "meaning": "Tên đối tượng nguồn vật lý", "unit": null, "nullable": false},
+        {"name": "source_row", "type": "BIGINT", "meaning": "Số thứ tự dòng trong đối tượng nguồn", "unit": "row", "nullable": false},
+        {"name": "source_sha256", "type": "VARCHAR", "meaning": "SHA-256 của đối tượng nguồn", "unit": null, "nullable": false},
+        {"name": "stage", "type": "VARCHAR", "meaning": "Giai đoạn phát hiện lỗi: PREKEY hoặc WINNER", "unit": null, "nullable": false},
+        {"name": "primary_reason", "type": "VARCHAR", "meaning": "Lý do loại chính theo thứ tự ưu tiên trong contract", "unit": null, "nullable": false},
+        {"name": "reasons", "type": "VARCHAR", "meaning": "Toàn bộ lý do loại, phân cách bằng dấu |", "unit": null, "nullable": false}
       ],
-      "dependencies": [
-        "raw",
-        "contracts/contract.json",
-        "contracts/curation_decisions.json"
+      "as_of": "2026-02-09T00:00:00Z",
+      "row_count": 395,
+      "input_manifest_sha256": "77dacfdb5a8b4e82fb2316990972de731a51b31f9fc052d739d0dea78e992331",
+      "contract_sha256": "a655a0ca42f9f847c77fca1060d88c76e7aed21e36994aa3d71fd54c26ce5d6d",
+      "code_sha256": "b03f9865f0df081469287850510281702a19011d1c6804440ac12bdaa819f0b0",
+      "quality_report": "evidence/task4/runs/task3-20261012-01/quality_after.json",
+      "retention": {
+        "days": 7,
+        "start_basis": "run_completion_time",
+        "hold": false,
+        "dependency_policy": "Không xóa nếu có legal hold hoặc approved release đang hoạt động cần dữ liệu này.",
+        "dependent_release_ids": [],
+        "action": "dry-run only"
+      },
+      "provenance": {
+        "job_name": "curate-task3-20261012-01",
+        "run_id": "task3-20261012-01",
+        "openlineage_run_id": "f4ea06e1-5465-4728-8491-cf92235271bb",
+        "role": "output"
+      },
+      "format": "csv",
+      "size_bytes": 47225,
+      "sha256": "2b7a219a160a71f1cbe7dbcd7c13c9f2f757b5ef75a1382849bb40e88ed3b61b"
+    },
+    {
+      "dataset_id": "curated_candidate",
+      "title": "Curated candidate telemetry",
+      "purpose": "Dữ liệu đã chuẩn hóa, kiểm tra và khử trùng lặp để chờ xét duyệt phát hành.",
+      "owner": "Hải Anh",
+      "steward": "Hải Anh",
+      "classification": "RESTRICTED_CANDIDATE",
+      "allowed_use": "Synthetic teaching data only; bản candidate chưa phải approved release.",
+      "location": [
+        {
+          "uri": "file:///home/haianhvu_08/lab2-bigdata/outputs/curate/task3-20261012-01/candidate/curated.parquet"
+        }
+      ],
+      "schema_version": "research-telemetry-v1",
+      "columns": [
+        {"name": "record_id", "type": "VARCHAR", "meaning": "Mã bản ghi sau chuẩn hóa và chọn phiên bản thắng", "unit": null, "nullable": false},
+        {"name": "sensor_id", "type": "VARCHAR", "meaning": "Mã cảm biến đã chuẩn hóa", "unit": null, "nullable": false},
+        {"name": "site", "type": "VARCHAR", "meaning": "Địa điểm lấy từ sensors registry", "unit": null, "nullable": false},
+        {"name": "event_time_utc", "type": "TIMESTAMP", "meaning": "Thời điểm đo đã phân tích theo UTC", "unit": "UTC", "nullable": false},
+        {"name": "ingest_time_utc", "type": "TIMESTAMP", "meaning": "Thời điểm nhận đã phân tích theo UTC", "unit": "UTC", "nullable": false},
+        {"name": "temperature_c", "type": "DECIMAL(8,2)", "meaning": "Nhiệt độ của bản ghi được chọn, chuyển đổi và làm tròn theo contract", "unit": "Celsius", "nullable": false},
+        {"name": "is_late", "type": "BOOLEAN", "meaning": "Cờ cho biết độ trễ nhận vượt ngưỡng trong contract", "unit": null, "nullable": false},
+        {"name": "source_object", "type": "VARCHAR", "meaning": "Tên đối tượng nguồn của bản ghi được chọn", "unit": null, "nullable": false},
+        {"name": "source_row", "type": "BIGINT", "meaning": "Số thứ tự dòng nguồn của bản ghi được chọn", "unit": "row", "nullable": false},
+        {"name": "source_sha256", "type": "VARCHAR", "meaning": "SHA-256 của đối tượng nguồn chứa bản ghi được chọn", "unit": null, "nullable": false}
+      ],
+      "as_of": "2026-02-09T00:00:00Z",
+      "row_count": 9610,
+      "input_manifest_sha256": "77dacfdb5a8b4e82fb2316990972de731a51b31f9fc052d739d0dea78e992331",
+      "contract_sha256": "a655a0ca42f9f847c77fca1060d88c76e7aed21e36994aa3d71fd54c26ce5d6d",
+      "code_sha256": "b03f9865f0df081469287850510281702a19011d1c6804440ac12bdaa819f0b0",
+      "quality_report": "evidence/task4/runs/task3-20261012-01/quality_after.json",
+      "retention": {
+        "days": null,
+        "start_basis": "review_decision_time",
+        "hold": false,
+        "dependency_policy": "Giữ candidate trong khu vực hạn chế cho đến khi có quyết định review; chính sách 90 ngày chỉ áp dụng cho approved release.",
+        "dependent_release_ids": [],
+        "action": "dry-run only"
+      },
+      "provenance": {
+        "job_name": "curate-task3-20261012-01",
+        "run_id": "task3-20261012-01",
+        "openlineage_run_id": "f4ea06e1-5465-4728-8491-cf92235271bb",
+        "role": "output"
+      },
+      "format": "parquet",
+      "size_bytes": 209500,
+      "sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
+      "supporting_artifacts": [
+        "outputs/curate/task3-20261012-01/quarantine.csv",
+        "outputs/curate/task3-20261012-01/duplicates.csv"
       ]
     }
   ],
   "artifacts": [
     {
       "artifact_id": "duplicates",
-      "location": "outputs/curate/task3-20261011-01/duplicates.csv",
+      "location": "outputs/curate/task3-20261012-01/duplicates.csv",
       "row_count": 200,
       "size_bytes": 39817,
       "sha256": "c0c31ea812966ceb25af853c1700e865f9f0202cdb4f49c6cda32e5b1df5256c",
