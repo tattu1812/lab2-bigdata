@@ -1,0 +1,88 @@
+{
+  "plan_version": "1.1",
+  "run_id": "task3-20261012-01",
+  "evaluated_at": "2026-10-12T09:45:21Z",
+  "dry_run": true,
+  "delete_executed": false,
+  "policy_owner": "Vũ Hải Anh",
+  "policy": {
+    "raw": {
+      "days": 30,
+      "start_basis": "retrieval_time"
+    },
+    "quarantine": {
+      "days": 7,
+      "start_basis": "run_completion_time"
+    },
+    "approved_release": {
+      "days": 90,
+      "start_basis": "publication_time"
+    },
+    "audit_records": "Retain at least for the lifetime of the approved release",
+    "overrides": [
+      "legal_hold",
+      "active_approved_release_dependency"
+    ]
+  },
+  "note": "Four simulated cases only; no actual deletion or approved release is asserted.",
+  "cases": [
+    {
+      "case_id": "R01",
+      "dataset_id": "scratch-example",
+      "simulated": true,
+      "start_basis": "creation_time",
+      "start_time": "2026-10-09T09:45:21Z",
+      "retention_days": 1,
+      "expires_at": "2026-10-10T09:45:21Z",
+      "hold": false,
+      "dependent_release_ids": [],
+      "decision": "ELIGIBLE",
+      "reason_code": "EXPIRED_NO_BLOCKERS",
+      "delete_executed": false
+    },
+    {
+      "case_id": "R02",
+      "dataset_id": "quarantine",
+      "simulated": true,
+      "start_basis": "run_completion_time",
+      "start_time": "2026-10-02T09:45:21Z",
+      "retention_days": 7,
+      "expires_at": "2026-10-09T09:45:21Z",
+      "hold": true,
+      "dependent_release_ids": [],
+      "decision": "KEEP / HOLD",
+      "reason_code": "HOLD",
+      "delete_executed": false
+    },
+    {
+      "case_id": "R03",
+      "dataset_id": "raw",
+      "simulated": true,
+      "start_basis": "retrieval_time",
+      "start_time": "2026-09-07T09:45:21Z",
+      "retention_days": 30,
+      "expires_at": "2026-10-07T09:45:21Z",
+      "hold": false,
+      "dependent_release_ids": [
+        "SIMULATED-APPROVED-RELEASE"
+      ],
+      "decision": "KEEP / ACTIVE_DEPENDENCY",
+      "reason_code": "ACTIVE_DEPENDENCY",
+      "delete_executed": false
+    },
+    {
+      "case_id": "R04",
+      "dataset_id": "quarantine",
+      "simulated": true,
+      "start_basis": "run_completion_time",
+      "start_time": "2026-10-11T09:45:21Z",
+      "retention_days": 7,
+      "expires_at": "2026-10-18T09:45:21Z",
+      "hold": false,
+      "dependent_release_ids": [],
+      "decision": "KEEP / NOT_EXPIRED",
+      "reason_code": "NOT_EXPIRED",
+      "delete_executed": false
+    }
+  ]
+}

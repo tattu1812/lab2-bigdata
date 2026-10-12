@@ -1,0 +1,100 @@
+{
+  "dataset_version": "research-telemetry-v1",
+  "phase": "after_curation",
+  "population_summary": {
+    "curated_total": 9610,
+    "qa_reference_total": 100,
+    "qa_covered": 100,
+    "qa_agreed": 95
+  },
+  "metrics": [
+    {
+      "rule_id": "completeness",
+      "dataset_version": "research-telemetry-v1",
+      "cohort": "CURATED",
+      "numerator": 9610,
+      "denominator": 9610,
+      "value": 1.0,
+      "threshold": 1.0,
+      "severity": "ERROR",
+      "status": "PASS"
+    },
+    {
+      "rule_id": "qa_agreement",
+      "dataset_version": "research-telemetry-v1",
+      "cohort": "QA_COVERED",
+      "numerator": 95,
+      "denominator": 100,
+      "value": 0.95,
+      "threshold": 0.95,
+      "severity": "ERROR",
+      "status": "PASS"
+    },
+    {
+      "rule_id": "qa_coverage",
+      "dataset_version": "research-telemetry-v1",
+      "cohort": "QA_REFERENCE",
+      "numerator": 100,
+      "denominator": 100,
+      "value": 1.0,
+      "threshold": 1.0,
+      "severity": "ERROR",
+      "status": "PASS"
+    },
+    {
+      "rule_id": "referential_integrity",
+      "dataset_version": "research-telemetry-v1",
+      "cohort": "CURATED",
+      "numerator": 9610,
+      "denominator": 9610,
+      "value": 1.0,
+      "threshold": 1.0,
+      "severity": "ERROR",
+      "status": "PASS"
+    },
+    {
+      "rule_id": "temporal_consistency",
+      "dataset_version": "research-telemetry-v1",
+      "cohort": "CURATED",
+      "numerator": 9610,
+      "denominator": 9610,
+      "value": 1.0,
+      "threshold": 1.0,
+      "severity": "ERROR",
+      "status": "PASS"
+    },
+    {
+      "rule_id": "timeliness",
+      "dataset_version": "research-telemetry-v1",
+      "cohort": "CURATED_TEMPORAL_VALID",
+      "numerator": 9410,
+      "denominator": 9610,
+      "value": 0.9791883454734651,
+      "threshold": 0.95,
+      "severity": "WARN",
+      "status": "PASS"
+    },
+    {
+      "rule_id": "uniqueness",
+      "dataset_version": "research-telemetry-v1",
+      "cohort": "CURATED",
+      "numerator": 9610,
+      "denominator": 9610,
+      "value": 1.0,
+      "threshold": 1.0,
+      "severity": "ERROR",
+      "status": "PASS"
+    },
+    {
+      "rule_id": "value_validity",
+      "dataset_version": "research-telemetry-v1",
+      "cohort": "CURATED",
+      "numerator": 9610,
+      "denominator": 9610,
+      "value": 1.0,
+      "threshold": 1.0,
+      "severity": "ERROR",
+      "status": "PASS"
+    }
+  ]
+}
