@@ -157,18 +157,4 @@ Các điểm dưới đây chưa đạt đầy đủ yêu cầu của đề. Nh�
   `sensors.csv`/contract thành dataset riêng và chưa dùng namespace `urn:bigdata:<store_id>`.
 - C02 chỉ chạy lại với envelope đảo ngược thứ tự, chưa xáo trộn ngẫu nhiên.
 
-## Khai báo sử dụng AI
-
-Nhóm dùng trợ lý AI (Claude Code) ở vai E cho các việc sau:
-
-- chạy lại toàn bộ pipeline để kiểm tra tái lập và đối chiếu evidence;
-- soạn `README.md`, `SUBMISSION.md`, erratum và finding;
-- điền `contributions.csv` dựa trên evidence và lịch sử git;
-- viết `src/trace_record.py` (L02/L03) và các script kiểm tra chéo trong `individual/`;
-- soạn bản nháp `individual/*/answers.md`;
-- sửa `FILLED` trong `gate.py`. Mọi số liệu trong tài liệu
-được lấy từ file evidence do script sinh ra, không do AI tự đặt. Mỗi thành viên phải tự
-xác nhận dòng của mình trong `contributions.csv` (cột `confirmed_by_member`) và bổ sung
-phần AI hỗ trợ trong task của mình nếu có.
-
 Không có credential hay dữ liệu hạn chế nào được commit lên repo.
