@@ -1,0 +1,336 @@
+{
+  "test_id": "gatetest-20261012-02",
+  "curate_run_id": "task3-20261012-01",
+  "operator": "Trung",
+  "executed_at": "2026-10-12T08:39:58Z",
+  "gate_sha256": "1d773e98821e5ee98d17aed848d8a5d548e5fe341e46d5bacd35341381eaba3c",
+  "base_bundle_unchanged": true,
+  "base_bundle_digest": "c7935010f0525909348c2067a319c8682acb4f5cb6fdd3a7c096a5d1c5c18581",
+  "cases": [
+    {
+      "case_id": "P01",
+      "title": "Candidate nguyên vẹn",
+      "artifact_changed": null,
+      "mutation": {
+        "change": "không sửa gì"
+      },
+      "expected": "PASS",
+      "observed_decision": "PASS",
+      "observed_passed": "9/9",
+      "observed_failed_categories": [],
+      "expected_category_hit": [],
+      "measured_errors": {},
+      "candidate_sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
+      "result": "PASS",
+      "operator": "Trung",
+      "started_at": "2026-10-12T08:39:49Z",
+      "finished_at": "2026-10-12T08:39:50Z"
+    },
+    {
+      "case_id": "P02",
+      "title": "Một temperature_c = 100.00",
+      "artifact_changed": "candidate/curated.parquet",
+      "mutation": {
+        "change": "R000381.temperature_c = 100.00"
+      },
+      "expected": "REJECT / VALUE",
+      "observed_decision": "REJECT",
+      "observed_passed": "6/9",
+      "observed_failed_categories": [
+        "VALUE",
+        "RECONCILIATION",
+        "METADATA"
+      ],
+      "expected_category_hit": [
+        "VALUE"
+      ],
+      "measured_errors": {
+        "VALUE": [
+          "value_validity 9609/9610 < 1.0"
+        ],
+        "RECONCILIATION": [
+          "candidate/curated.parquet khác hash trong run-manifest"
+        ],
+        "METADATA": [
+          "curated_candidate: size_bytes khác file thật",
+          "curated_candidate: sha256 khác file thật",
+          "run-record: hash outputs/curate/task3-20261012-01/candidate/curated.parquet không khớp"
+        ]
+      },
+      "candidate_sha256": "2c63e5a34fb6460dbfa756b3a660eb5d50c33484efe6b49ef6c8dc737e088bdb",
+      "result": "PASS",
+      "operator": "Trung",
+      "started_at": "2026-10-12T08:39:50Z",
+      "finished_at": "2026-10-12T08:39:51Z",
+      "publish_attempt": {
+        "release_id": "release-20261012-P02",
+        "status": "REFUSED",
+        "exit_code": 3,
+        "reason": "gate REJECT (6/9)",
+        "s3_writes": 0
+      }
+    },
+    {
+      "case_id": "P03",
+      "title": "Một temperature_c = NULL",
+      "artifact_changed": "candidate/curated.parquet",
+      "mutation": {
+        "change": "R000381.temperature_c = NULL"
+      },
+      "expected": "REJECT / REQUIRED hoặc VALUE",
+      "observed_decision": "REJECT",
+      "observed_passed": "5/9",
+      "observed_failed_categories": [
+        "REQUIRED",
+        "VALUE",
+        "RECONCILIATION",
+        "METADATA"
+      ],
+      "expected_category_hit": [
+        "REQUIRED",
+        "VALUE"
+      ],
+      "measured_errors": {
+        "REQUIRED": [
+          "1 dòng NULL ở temperature_c",
+          "completeness 9609/9610 < 1.0"
+        ],
+        "VALUE": [
+          "value_validity 9609/9610 < 1.0"
+        ],
+        "RECONCILIATION": [
+          "candidate/curated.parquet khác hash trong run-manifest"
+        ],
+        "METADATA": [
+          "curated_candidate: size_bytes khác file thật",
+          "curated_candidate: sha256 khác file thật",
+          "run-record: hash outputs/curate/task3-20261012-01/candidate/curated.parquet không khớp"
+        ]
+      },
+      "candidate_sha256": "53acf0b0b2ae9781063ea141706ff01c948b67989a05fdc1b0cf44c054a37875",
+      "result": "PASS",
+      "operator": "Trung",
+      "started_at": "2026-10-12T08:39:51Z",
+      "finished_at": "2026-10-12T08:39:52Z",
+      "publish_attempt": {
+        "release_id": "release-20261012-P03",
+        "status": "REFUSED",
+        "exit_code": 3,
+        "reason": "gate REJECT (5/9)",
+        "s3_writes": 0
+      }
+    },
+    {
+      "case_id": "P04",
+      "title": "Thêm một dòng trùng record_id",
+      "artifact_changed": "candidate/curated.parquet",
+      "mutation": {
+        "change": "thêm một dòng trùng record_id R000381"
+      },
+      "expected": "REJECT / UNIQUENESS hoặc RECONCILIATION",
+      "observed_decision": "REJECT",
+      "observed_passed": "5/9",
+      "observed_failed_categories": [
+        "UNIQUENESS",
+        "RECONCILIATION",
+        "METADATA",
+        "LINEAGE"
+      ],
+      "expected_category_hit": [
+        "UNIQUENESS",
+        "RECONCILIATION"
+      ],
+      "measured_errors": {
+        "UNIQUENESS": [
+          "record_id trùng: 1 dòng thừa (ví dụ ['R000381'])",
+          "khóa vật lý trùng: 1 dòng thừa"
+        ],
+        "RECONCILIATION": [
+          "bảo toàn sai: 9611+395+200=10206 != raw 10205",
+          "1 khóa vật lý xuất hiện nhiều lần trong output",
+          "run-manifest.counts.curated=9610 != thực tế 9611",
+          "candidate/curated.parquet khác hash trong run-manifest"
+        ],
+        "METADATA": [
+          "curated_candidate: size_bytes khác file thật",
+          "curated_candidate: sha256 khác file thật",
+          "curated_candidate: row_count 9610 != thực tế 9611",
+          "run-record: hash outputs/curate/task3-20261012-01/candidate/curated.parquet không khớp"
+        ],
+        "LINEAGE": [
+          "outputs/curate/task3-20261012-01/candidate/curated.parquet: rowCount 9610 != thực tế 9611"
+        ]
+      },
+      "candidate_sha256": "8bde6092241dce32281d378a9e03d7a1446b940915afecc44a7f3725218beaf1",
+      "result": "PASS",
+      "operator": "Trung",
+      "started_at": "2026-10-12T08:39:52Z",
+      "finished_at": "2026-10-12T08:39:53Z",
+      "publish_attempt": {
+        "release_id": "release-20261012-P04",
+        "status": "REFUSED",
+        "exit_code": 3,
+        "reason": "gate REJECT (5/9)",
+        "s3_writes": 0
+      }
+    },
+    {
+      "case_id": "P05",
+      "title": "Xóa steward trong metadata",
+      "artifact_changed": "catalog.json",
+      "mutation": {
+        "change": "xóa steward ('Hải Anh') của curated_candidate"
+      },
+      "expected": "REJECT / METADATA",
+      "observed_decision": "REJECT",
+      "observed_passed": "8/9",
+      "observed_failed_categories": [
+        "METADATA"
+      ],
+      "expected_category_hit": [
+        "METADATA"
+      ],
+      "measured_errors": {
+        "METADATA": [
+          "curated_candidate: thiếu steward"
+        ]
+      },
+      "candidate_sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
+      "result": "PASS",
+      "operator": "Trung",
+      "started_at": "2026-10-12T08:39:54Z",
+      "finished_at": "2026-10-12T08:39:54Z",
+      "publish_attempt": {
+        "release_id": "release-20261012-P05",
+        "status": "REFUSED",
+        "exit_code": 3,
+        "reason": "gate REJECT (8/9)",
+        "s3_writes": 0
+      }
+    },
+    {
+      "case_id": "P06",
+      "title": "Sửa byte bản sao nguồn",
+      "artifact_changed": "staged/observations_a.csv (bản sao)",
+      "mutation": {
+        "change": "byte offset 210514: '2' -> '7'",
+        "sha256_before": "5157418915d867980fac8d84551a8b856bba1669ca2e33cef91a15ee82101aea",
+        "sha256_after": "b7c23414328270f4290c15aeee66dfda64e1b22565e2ce026c1d74b93638e19e"
+      },
+      "expected": "REJECT / INPUT_INTEGRITY",
+      "observed_decision": "REJECT",
+      "observed_passed": "8/9",
+      "observed_failed_categories": [
+        "INPUT_INTEGRITY"
+      ],
+      "expected_category_hit": [
+        "INPUT_INTEGRITY"
+      ],
+      "measured_errors": {
+        "INPUT_INTEGRITY": [
+          "observations_a.csv: sha256 khác trusted manifest"
+        ]
+      },
+      "candidate_sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
+      "result": "PASS",
+      "operator": "Trung",
+      "started_at": "2026-10-12T08:39:55Z",
+      "finished_at": "2026-10-12T08:39:55Z",
+      "publish_attempt": {
+        "release_id": "release-20261012-P06",
+        "status": "REFUSED",
+        "exit_code": 3,
+        "reason": "gate REJECT (8/9)",
+        "s3_writes": 0
+      }
+    },
+    {
+      "case_id": "P07",
+      "title": "Xóa một output lineage của curate",
+      "artifact_changed": "evidence/task4/lineage.jsonl",
+      "mutation": {
+        "change": "xóa output outputs/curate/task3-20261012-01/duplicates.csv khỏi COMPLETE"
+      },
+      "expected": "REJECT / LINEAGE",
+      "observed_decision": "REJECT",
+      "observed_passed": "8/9",
+      "observed_failed_categories": [
+        "LINEAGE"
+      ],
+      "expected_category_hit": [
+        "LINEAGE"
+      ],
+      "measured_errors": {
+        "LINEAGE": [
+          "COMPLETE thiếu output outputs/curate/task3-20261012-01/duplicates.csv"
+        ]
+      },
+      "candidate_sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
+      "result": "PASS",
+      "operator": "Trung",
+      "started_at": "2026-10-12T08:39:56Z",
+      "finished_at": "2026-10-12T08:39:56Z",
+      "publish_attempt": {
+        "release_id": "release-20261012-P07",
+        "status": "REFUSED",
+        "exit_code": 3,
+        "reason": "gate REJECT (8/9)",
+        "s3_writes": 0
+      }
+    },
+    {
+      "case_id": "P08",
+      "title": "Xóa một ID QA bị lệch khỏi candidate",
+      "artifact_changed": "candidate/curated.parquet",
+      "mutation": {
+        "change": "xóa R000810 (QA lệch) khỏi candidate -> độ khớp tăng nhưng độ phủ giảm"
+      },
+      "expected": "REJECT / COVERAGE",
+      "observed_decision": "REJECT",
+      "observed_passed": "5/9",
+      "observed_failed_categories": [
+        "RECONCILIATION",
+        "METADATA",
+        "LINEAGE",
+        "COVERAGE"
+      ],
+      "expected_category_hit": [
+        "COVERAGE"
+      ],
+      "measured_errors": {
+        "RECONCILIATION": [
+          "bảo toàn sai: 9609+395+200=10204 != raw 10205",
+          "1 bản ghi raw bị mất",
+          "run-manifest.counts.curated=9610 != thực tế 9609",
+          "candidate/curated.parquet khác hash trong run-manifest"
+        ],
+        "METADATA": [
+          "curated_candidate: size_bytes khác file thật",
+          "curated_candidate: sha256 khác file thật",
+          "curated_candidate: row_count 9610 != thực tế 9609",
+          "run-record: hash outputs/curate/task3-20261012-01/candidate/curated.parquet không khớp"
+        ],
+        "LINEAGE": [
+          "outputs/curate/task3-20261012-01/candidate/curated.parquet: rowCount 9610 != thực tế 9609"
+        ],
+        "COVERAGE": [
+          "qa_coverage 99/100 < 1.0"
+        ]
+      },
+      "candidate_sha256": "0eb3276d9368bd9cbf4c41cb8b0d8838ba374197436865b6b78ca4632a70d328",
+      "result": "PASS",
+      "operator": "Trung",
+      "started_at": "2026-10-12T08:39:57Z",
+      "finished_at": "2026-10-12T08:39:57Z",
+      "publish_attempt": {
+        "release_id": "release-20261012-P08",
+        "status": "REFUSED",
+        "exit_code": 3,
+        "reason": "gate REJECT (5/9)",
+        "s3_writes": 0
+      }
+    }
+  ],
+  "rejected_cases": 7,
+  "status": "PASS"
+}

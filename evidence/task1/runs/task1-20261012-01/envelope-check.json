@@ -1,0 +1,12 @@
+{
+  "test_id": "I02",
+  "status": "PASS",
+  "expected_envelopes": 10205,
+  "actual_envelopes": 10205,
+  "unique_physical_ids": 10205,
+  "source_counts": {
+    "observations_a.csv": 5000,
+    "observations_b.jsonl": 5205
+  },
+  "jsonl_parse_errors": 5
+}

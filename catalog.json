@@ -1,6 +1,6 @@
 {
   "catalog_version": "1.0",
-  "run_id": "task3-20261011-01",
+  "run_id": "task3-20261012-01",
   "datasets": [
     {
       "dataset_id": "raw",
@@ -30,7 +30,7 @@
       ],
       "owner": "Hải Anh",
       "steward": "Hải Anh",
-      "source_run_id": "task1-20261011-01",
+      "source_run_id": "task1-20261012-01",
       "quality_report": "evidence/task2/quality_before.json",
       "retention_policy": "KEEP",
       "source_aliases": [
@@ -46,10 +46,10 @@
     {
       "dataset_id": "quarantine",
       "name": "Quarantine Records",
-      "version": "task3-20261011-01",
+      "version": "task3-20261012-01",
       "description": "Các bản ghi bị loại khỏi dữ liệu curated",
       "format": "csv",
-      "location": "outputs/curate/task3-20261011-01/quarantine.csv",
+      "location": "outputs/curate/task3-20261012-01/quarantine.csv",
       "row_count": 395,
       "size_bytes": 47225,
       "sha256": "2b7a219a160a71f1cbe7dbcd7c13c9f2f757b5ef75a1382849bb40e88ed3b61b",
@@ -64,7 +64,7 @@
       ],
       "owner": "Hải Anh",
       "steward": "Hải Anh",
-      "source_run_id": "task3-20261011-01",
+      "source_run_id": "task3-20261012-01",
       "quality_report": "evidence/task2/quality_after.json",
       "retention_policy": "KEEP",
       "source_aliases": [
@@ -84,10 +84,10 @@
     {
       "dataset_id": "curated_candidate",
       "name": "Curated Candidate Dataset",
-      "version": "task3-20261011-01",
+      "version": "task3-20261012-01",
       "description": "Dữ liệu telemetry sau khi áp dụng quy tắc curation",
       "format": "parquet",
-      "location": "outputs/curate/task3-20261011-01/candidate/curated.parquet",
+      "location": "outputs/curate/task3-20261012-01/candidate/curated.parquet",
       "row_count": 9610,
       "size_bytes": 209500,
       "sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
@@ -105,7 +105,7 @@
       ],
       "owner": "Hải Anh",
       "steward": "Hải Anh",
-      "source_run_id": "task3-20261011-01",
+      "source_run_id": "task3-20261012-01",
       "quality_report": "evidence/task2/quality_after.json",
       "retention_policy": "KEEP",
       "source_aliases": [
@@ -126,7 +126,7 @@
   "artifacts": [
     {
       "artifact_id": "duplicates",
-      "location": "outputs/curate/task3-20261011-01/duplicates.csv",
+      "location": "outputs/curate/task3-20261012-01/duplicates.csv",
       "row_count": 200,
       "size_bytes": 39817,
       "sha256": "c0c31ea812966ceb25af853c1700e865f9f0202cdb4f49c6cda32e5b1df5256c",

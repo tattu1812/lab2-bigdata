@@ -1,7 +1,7 @@
 {
-  "run_id": "task3-20261011-01",
-  "openlineage_run_id": "3f70d075-153c-48c8-acca-2e55702c018c",
-  "job_name": "curate-task3-20261011-01",
+  "run_id": "task3-20261012-01",
+  "openlineage_run_id": "20d91699-df95-4a98-94f8-25d2faa24eb1",
+  "job_name": "curate-task3-20261012-01",
   "status": "COMPLETE",
   "reviewer": "Hải Anh",
   "code": {
@@ -16,11 +16,11 @@
   },
   "contract": {
     "path": "contracts/contract.json",
-    "sha256": "a655a0ca42f9f847c77fca1060d88c76e7aed21e36994aa3d71fd54c26ce5d6d"
+    "sha256": "af08336397eaf39f3fbf9dee23f5c257b50d0d6b4398b7dd8ffa47c6b1117a26"
   },
   "curation_decisions": {
     "path": "contracts/curation_decisions.json",
-    "sha256": "68899639b17752f0067e51c0ae6e1e278f8bb4c634c19cc9f889243b1f78fc5d"
+    "sha256": "086a763f210dfdeaa5fd8537eb359149eff2c3f008c5536e897da9bed792ae1d"
   },
   "input": {
     "path": "data/trusted_manifest.json",
@@ -28,17 +28,17 @@
   },
   "outputs": [
     {
-      "path": "outputs/curate/task3-20261011-01/candidate/curated.parquet",
+      "path": "outputs/curate/task3-20261012-01/candidate/curated.parquet",
       "row_count": 9610,
       "sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d"
     },
     {
-      "path": "outputs/curate/task3-20261011-01/quarantine.csv",
+      "path": "outputs/curate/task3-20261012-01/quarantine.csv",
       "row_count": 395,
       "sha256": "2b7a219a160a71f1cbe7dbcd7c13c9f2f757b5ef75a1382849bb40e88ed3b61b"
     },
     {
-      "path": "outputs/curate/task3-20261011-01/duplicates.csv",
+      "path": "outputs/curate/task3-20261012-01/duplicates.csv",
       "row_count": 200,
       "sha256": "c0c31ea812966ceb25af853c1700e865f9f0202cdb4f49c6cda32e5b1df5256c"
     }

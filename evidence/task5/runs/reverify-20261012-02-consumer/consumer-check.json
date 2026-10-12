@@ -1,0 +1,132 @@
+{
+  "check_id": "CONSUMER",
+  "release_id": "release-20261012-02",
+  "principal": "analyst",
+  "operator": "Trung",
+  "executed_at": "2026-10-12T13:22:05Z",
+  "manifest_key": "lab2/releases/release-20261012-02/release_manifest.json",
+  "manifest_sha256": "a4f46b8d836421b7387a50863c0976a9c0e9767b92875dacbfba755889737337",
+  "checks": {
+    "hash_match": {
+      "status": "PASS",
+      "matched": "4/4",
+      "objects": [
+        {
+          "key": "lab2/releases/release-20261012-02/curated.parquet",
+          "bytes": 209500,
+          "sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
+          "match": true,
+          "last_modified": "2026-10-12T08:39:23+00:00"
+        },
+        {
+          "key": "lab2/releases/release-20261012-02/catalog.json",
+          "bytes": 3871,
+          "sha256": "1c93666b3e325022b289a34ed07abe50a9cb0e326cee58339c44c0364213b357",
+          "match": true,
+          "last_modified": "2026-10-12T08:39:23+00:00"
+        },
+        {
+          "key": "lab2/releases/release-20261012-02/gate-report.json",
+          "bytes": 5425,
+          "sha256": "0c443500a8e177178ae65ca4bf3c24d6eb8764ff72bf209c978dd89197ede611",
+          "match": true,
+          "last_modified": "2026-10-12T08:39:23+00:00"
+        },
+        {
+          "key": "lab2/releases/release-20261012-02/review.json",
+          "bytes": 897,
+          "sha256": "945a7acbc61c283f9886a2aa37409436c243d1d6b4d70aee86f206c51549e266",
+          "match": true,
+          "last_modified": "2026-10-12T08:39:23+00:00"
+        }
+      ]
+    },
+    "manifest_written_last": {
+      "status": "PASS",
+      "manifest_last_modified": "2026-10-12T08:39:23+00:00",
+      "latest_object_last_modified": "2026-10-12T08:39:23+00:00",
+      "listed_keys": [
+        "lab2/releases/release-20261012-02/catalog.json",
+        "lab2/releases/release-20261012-02/curated.parquet",
+        "lab2/releases/release-20261012-02/gate-report.json",
+        "lab2/releases/release-20261012-02/release_manifest.json",
+        "lab2/releases/release-20261012-02/review.json"
+      ],
+      "unlisted_in_manifest": []
+    },
+    "row_count": {
+      "status": "PASS",
+      "rows": 9610,
+      "distinct_record_id": 9610,
+      "manifest_row_count": 9610,
+      "columns": [
+        "record_id",
+        "sensor_id",
+        "site",
+        "event_time_utc",
+        "ingest_time_utc",
+        "temperature_c",
+        "is_late",
+        "source_object",
+        "source_row",
+        "source_sha256"
+      ],
+      "restricted_ledgers_in_release": []
+    },
+    "raw_denied": {
+      "status": "PASS",
+      "key": "s3://research-raw/lab2/inputs/batch-01/sensors.csv",
+      "error": "AccessDenied",
+      "http_status": 403
+    },
+    "rejected_have_no_manifest": {
+      "status": "PASS",
+      "count": 7,
+      "cases": [
+        {
+          "release_id": "release-20261012-P02",
+          "manifest_present": false,
+          "head_http_status": 404,
+          "objects_under_prefix": 0
+        },
+        {
+          "release_id": "release-20261012-P03",
+          "manifest_present": false,
+          "head_http_status": 404,
+          "objects_under_prefix": 0
+        },
+        {
+          "release_id": "release-20261012-P04",
+          "manifest_present": false,
+          "head_http_status": 404,
+          "objects_under_prefix": 0
+        },
+        {
+          "release_id": "release-20261012-P05",
+          "manifest_present": false,
+          "head_http_status": 404,
+          "objects_under_prefix": 0
+        },
+        {
+          "release_id": "release-20261012-P06",
+          "manifest_present": false,
+          "head_http_status": 404,
+          "objects_under_prefix": 0
+        },
+        {
+          "release_id": "release-20261012-P07",
+          "manifest_present": false,
+          "head_http_status": 404,
+          "objects_under_prefix": 0
+        },
+        {
+          "release_id": "release-20261012-P08",
+          "manifest_present": false,
+          "head_http_status": 404,
+          "objects_under_prefix": 0
+        }
+      ]
+    }
+  },
+  "status": "PASS"
+}

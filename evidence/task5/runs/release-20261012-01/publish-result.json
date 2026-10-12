@@ -1,0 +1,56 @@
+{
+  "release_id": "release-20261012-01",
+  "curate_run_id": "task3-20261012-01",
+  "operator": "Trung",
+  "started_at": "2026-10-12T08:36:00Z",
+  "bucket": "research-release",
+  "prefix": "lab2/releases/release-20261012-01/",
+  "s3_writes": 5,
+  "steps": [
+    {
+      "step": "gate",
+      "decision": "PASS",
+      "passed": "9/9",
+      "failed_categories": []
+    },
+    {
+      "step": "review",
+      "problems": []
+    },
+    {
+      "step": "no_overwrite",
+      "existing_objects": 0
+    }
+  ],
+  "status": "PUBLISHED",
+  "finished_at": "2026-10-12T08:36:01Z",
+  "manifest_key": "lab2/releases/release-20261012-01/release_manifest.json",
+  "manifest_sha256": "33a2410f6ab921ad68f4786eaabbdd9380037d1d0c8f8e0f8f4fef689ea63a84",
+  "publish_run_id": "052a84a9-961c-4846-b66c-846321eaa727",
+  "objects": [
+    {
+      "key": "lab2/releases/release-20261012-01/curated.parquet",
+      "bytes": 209500,
+      "sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
+      "verified_after_upload": true
+    },
+    {
+      "key": "lab2/releases/release-20261012-01/catalog.json",
+      "bytes": 3871,
+      "sha256": "1c93666b3e325022b289a34ed07abe50a9cb0e326cee58339c44c0364213b357",
+      "verified_after_upload": true
+    },
+    {
+      "key": "lab2/releases/release-20261012-01/gate-report.json",
+      "bytes": 5425,
+      "sha256": "5cbefee8fdc195c8fd4be11d99c7040b8753f361d18ef5a4a23a455605e63b69",
+      "verified_after_upload": true
+    },
+    {
+      "key": "lab2/releases/release-20261012-01/review.json",
+      "bytes": 693,
+      "sha256": "3cdca490484fe7a015f836aff145108c2b5a9d45bfa8b41085dfa762c7f395c9",
+      "verified_after_upload": true
+    }
+  ]
+}

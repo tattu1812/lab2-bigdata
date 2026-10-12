@@ -1,0 +1,79 @@
+{
+  "manifest_version": "1.0",
+  "release_id": "release-20261012-02",
+  "bucket": "research-release",
+  "prefix": "lab2/releases/release-20261012-02/",
+  "created_at": "2026-10-12T08:39:23Z",
+  "publisher": "Trung",
+  "curate_run_id": "task3-20261012-01",
+  "publish_lineage": {
+    "run_id": "e892a69b-f099-453b-9a42-d425997374c9",
+    "start_event_time": "2026-10-12T08:39:23Z",
+    "note": "COMPLETE được phát sau manifest và tham chiếu hash manifest; manifest không chứa COMPLETE để tránh phụ thuộc vòng"
+  },
+  "candidate": {
+    "key": "lab2/releases/release-20261012-02/curated.parquet",
+    "sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
+    "row_count": 9610,
+    "columns": [
+      "record_id",
+      "sensor_id",
+      "site",
+      "event_time_utc",
+      "ingest_time_utc",
+      "temperature_c",
+      "is_late",
+      "source_object",
+      "source_row",
+      "source_sha256"
+    ]
+  },
+  "gate": {
+    "decision": "PASS",
+    "passed": "9/9",
+    "gate_sha256": "1d773e98821e5ee98d17aed848d8a5d548e5fe341e46d5bacd35341381eaba3c",
+    "evaluated_at": "2026-10-12T08:39:22Z",
+    "report_key": "lab2/releases/release-20261012-02/gate-report.json"
+  },
+  "review": {
+    "reviewer": "Hải Anh",
+    "decision": "APPROVE",
+    "reason": "Gate tự tính lại PASS 9/9 trên bundle mới (evidence/task5/runs/release-20261012-01-prereview/gate-report.json); 7 ca đột biến P02–P08 đều bị REJECT; kiểm tra chéo QA khớp quality_after (coverage 100/100, agreement 95/100); hash candidate khớp catalog.json và run-record.json.",
+    "reviewed_at": "2026-10-12T08:35:50Z",
+    "review_sha256": "945a7acbc61c283f9886a2aa37409436c243d1d6b4d70aee86f206c51549e266",
+    "report_key": "lab2/releases/release-20261012-02/review.json"
+  },
+  "objects": [
+    {
+      "key": "lab2/releases/release-20261012-02/curated.parquet",
+      "bytes": 209500,
+      "sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
+      "verified_after_upload": true
+    },
+    {
+      "key": "lab2/releases/release-20261012-02/catalog.json",
+      "bytes": 3871,
+      "sha256": "1c93666b3e325022b289a34ed07abe50a9cb0e326cee58339c44c0364213b357",
+      "verified_after_upload": true
+    },
+    {
+      "key": "lab2/releases/release-20261012-02/gate-report.json",
+      "bytes": 5425,
+      "sha256": "0c443500a8e177178ae65ca4bf3c24d6eb8764ff72bf209c978dd89197ede611",
+      "verified_after_upload": true
+    },
+    {
+      "key": "lab2/releases/release-20261012-02/review.json",
+      "bytes": 897,
+      "sha256": "945a7acbc61c283f9886a2aa37409436c243d1d6b4d70aee86f206c51549e266",
+      "verified_after_upload": true
+    }
+  ],
+  "excluded_from_release": {
+    "files": [
+      "quarantine.csv",
+      "duplicates.csv"
+    ],
+    "reason": "sổ quarantine/duplicates chỉ nằm trong bản nộp hạn chế, không công bố cho analyst"
+  }
+}
