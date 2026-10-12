@@ -16,10 +16,43 @@ Các công việc chính:
 
 ## 2. Chuẩn bị môi trường
 
-Chạy trong WSL:
+```bash
+# Chạy trong WSL
+cd ~/lab2-bigdata
+mkdir -p data
+
+# Mở file explorer của WSL
+explorer.exe .
+```
+
+Sau đó kéo thả từ window 2 mục: `Lab2-datasets` đã giải nén (không bị lặp folder) + `trusted_manifest.json` --> `/data/`.  
 
 ```bash
-cd ~/lab2-bigdata
+# Check path
+ls data/
+ls data/Lab2-datasets/input/
+ls data/Lab2-datasets/schemas/
+```
+
+```bash
+source env.sh
+
+# Tạo thư mục chứa dữ liệu input trên pod ingestor
+kubectl exec -n "$NS" ingestor -- mkdir -p /tmp/lab2-inputs
+
+# Copy dữ liệu vào pod
+kubectl cp data/Lab2-datasets/input/. "$NS/ingestor:/tmp/lab2-inputs"
+
+# Check, phải chứa tên 4 file trong mục input
+kubectl exec -n "$NS" ingestor -- ls -lh /tmp/lab2-inputs/
+
+# Upload to S3
+kubectl exec -i -n "$NS" ingestor -- python3 - < src/upload_to_S3.py
+```
+
+Đảm bảo thực hiện xong lệnh trên thì tiếp tục:
+
+```bash
 source env.sh
 
 kubectl config current-context
