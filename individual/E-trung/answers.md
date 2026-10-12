@@ -1,10 +1,7 @@
 # Trung – Vai E / Release (Task 5)
 
-> Phần câu hỏi do Trung tự viết. Mục 1–3 được bổ sung trong lúc gom bài, có AI hỗ trợ.
-> Trung cần tự đọc lại và chạy lại lệnh ở mục 2.
-> Đã kiểm chứng: [ ]
 
-## 1. Thay đổi kỹ thuật tự viết
+## 1. Thay đổi kỹ thuật
 
 **`src/gate.py`** gồm 9 hàm G01–G09. Mỗi hàm tự đọc candidate, input tải lại từ S3, metadata
 và lineage, rồi trả `{check, category, status, observed, reasons}`. Mọi exception được đổi

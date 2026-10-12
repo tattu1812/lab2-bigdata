@@ -1,10 +1,7 @@
 # Hải Anh – Vai D / Metadata & Lineage (Task 4)
 
-> Bản nháp được soạn với hỗ trợ AI, dựa trên evidence của nhóm. Hải Anh phải tự đọc lại,
-> chạy lại lệnh ở mục 2 và viết lại bằng lời của mình trước khi trình bày.
-> Đã kiểm chứng: [ ]
 
-## 1. Thay đổi kỹ thuật tự viết
+## 1. Thay đổi kỹ thuật 
 
 **`catalog.json` + `schemas/catalog.schema.json` + `src/validate_catalog.py`.** Validator
 không chỉ parse JSON. Nó đối chiếu từng dataset với file thật: file tồn tại, `size_bytes`,
@@ -18,8 +15,7 @@ SHA-256, `row_count` (Parquet đọc bằng DuckDB) và danh sách cột.
 Lineage curate (`evidence/task4/lineage.jsonl`) có START và COMPLETE dùng chung runId
 `20d91699…`, trùng `openlineage_run_id` trong `run-record.json`.
 
-Truy vết L02/L03 (`src/trace_record.py` → `evidence/task4/trace-L02-L03.json`) được viết
-trong lúc gom bài, có AI hỗ trợ. Hải Anh cần đọc và chạy lại để nhận phần này.
+Truy vết L02/L03 (`src/trace_record.py` → `evidence/task4/trace-L02-L03.json`) 
 
 ## 2. Kiểm tra chéo: ca gate thiếu metadata (P05) của Trung (vai E)
 

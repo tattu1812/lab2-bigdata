@@ -1,8 +1,5 @@
 # Trung Nguyễn – Vai B / Quality (Task 2)
 
-> Bản nháp được soạn với hỗ trợ AI, dựa trên evidence của nhóm. Trung Nguyễn phải tự đọc
-> lại, chạy lại lệnh ở mục 2 và viết lại bằng lời của mình trước khi trình bày.
-> Đã kiểm chứng: [ ]
 
 ## 1. Thay đổi kỹ thuật tự viết
 

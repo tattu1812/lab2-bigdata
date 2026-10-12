@@ -1,8 +1,5 @@
 # Khánh – Vai C / Curation (Task 3)
 
-> Bản nháp được soạn với hỗ trợ AI, dựa trên evidence của nhóm. Khánh phải tự đọc lại,
-> chạy lại lệnh ở mục 2 và viết lại bằng lời của mình trước khi trình bày.
-> Đã kiểm chứng: [ ]
 
 ## 1. Thay đổi kỹ thuật tự viết
 

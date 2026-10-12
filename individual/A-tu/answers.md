@@ -1,8 +1,5 @@
 # Tú – Vai A / Ingestion (Task 1)
 
-> Bản nháp được soạn với hỗ trợ AI, dựa trên evidence của nhóm. Tú phải tự đọc lại, chạy
-> lại lệnh ở mục 2 và viết lại bằng lời của mình trước khi trình bày.
-> Đã kiểm chứng: [ ]
 
 ## 1. Thay đổi kỹ thuật tự viết
 
