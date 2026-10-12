@@ -1,326 +1,78 @@
-# Task 4 Tutorial – Metadata, Lineage and Retention
+# Task 4 Tutorial — Metadata, Lineage, Retention
 
-## 0. Mục tiêu
+## Mục tiêu
 
-Task 4 không tạo lại dữ liệu. Nhiệm vụ là biến các artifact từ Task 1–3
-thành tài sản dữ liệu có thể phát hiện, kiểm tra, truy vết và quản lý vòng
-đời.
+Task 4 mô tả và kiểm tra metadata, truy vết và chính sách lưu giữ cho artifact thật từ Task 1–3. Dữ liệu là synthetic teaching data. Task 4 không phát hành approved release và không xóa file. Publish lineage là công việc riêng ở T5.
 
-Các deliverable:
+Run hiện tại: Task 1 `task1-20261012-01`, Task 3 `task3-20261012-01`, OpenLineage UUID `f4ea06e1-5465-4728-8491-cf92235271bb`. Mốc AS_OF cố định: `2026-02-09T00:00:00Z`.
 
-- `catalog.json`
-- `schemas/catalog.schema.json`
-- `src/validate_catalog.py`
-- `evidence/task4/lineage.jsonl`
-- `evidence/task4/run-record.json`
-- `evidence/task4/retention-plan.json`
-- `evidence/task4/README.md`
-- `Task4Tutorial.md`
+## Đầu vào và đầu ra
 
-Run curation thật đang dùng:
+Task 1 staging hai nguồn `observations_a.csv` và `observations_b.jsonl` trên S3, tạo envelope và stage report. Task 3 đọc envelope, registry `sensors.csv`, contract và curation decisions. QA reference chỉ được dùng để đánh giá sau curation, không để tính nhiệt độ.
 
-```bash
-RUN=task3-20261011-01
-BASE="outputs/curate/$RUN"
-```
+Run tạo ba artifact:
 
-## 1. Artifact nhận từ các task trước
+- `outputs/curate/task3-20261012-01/candidate/curated.parquet`: 9.610 dòng.
+- `outputs/curate/task3-20261012-01/quarantine.csv`: 395 dòng.
+- `outputs/curate/task3-20261012-01/duplicates.csv`: 200 dòng.
 
-Task 1 cung cấp raw input, staging và envelope. Task 2A cung cấp quality
-trước curation. Task 3 áp dụng quy tắc curation. Task 2B kiểm tra quality
-sau curation.
+Tổng bằng 10.205 quan sát raw. Size và SHA-256 thật của từng file nằm trong `evidence/task4/runs/task3-20261012-01/run-record.json`. Candidate chưa được review/phê duyệt thành release.
 
-Artifact Task 3:
+## Tạo run và OpenLineage
 
-```text
-outputs/curate/task3-20261011-01/candidate/curated.parquet
-outputs/curate/task3-20261011-01/quarantine.csv
-outputs/curate/task3-20261011-01/duplicates.csv
-```
-
-Metadata đã xác nhận:
-
-| Artifact | Rows | Size | SHA-256 |
-|---|---:|---:|---|
-| `curated.parquet` | 9610 | 209500 bytes | `3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d` |
-| `quarantine.csv` | 395 | 47225 bytes | `2b7a219a160a71f1cbe7dbcd7c13c9f2f757b5ef75a1382849bb40e88ed3b61b` |
-| `duplicates.csv` | 200 | 39817 bytes | `c0c31ea812966ceb25af853c1700e865f9f0202cdb4f49c6cda32e5b1df5256c` |
-
-Raw telemetry gồm 10205 records:
-
-- `observations_a.csv`: 5000 records, 421028 bytes.
-- `observations_b.jsonl`: 5205 records, 1037439 bytes.
-
-## 2. Chuẩn bị môi trường
-
-```bash
-cd ~/lab2-bigdata
-source env.sh
-mkdir -p schemas evidence/task4
-```
-
-Để kiểm tra Parquet, dùng môi trường có DuckDB:
+Sau `source env.sh`, kiểm tra pod `curate` đang Ready và `/work/envelopes.jsonl`, `/work/staged/sensors.csv`, `/work/stage-report.json` còn tồn tại. `/work` là EmptyDir; nếu pod được tạo lại, phải chuẩn bị lại Task 1. Mỗi run dùng ID mới, không chạy đè run cũ:
 
 ```bash
 source .venv-task2/bin/activate
-python -m pip install duckdb
-python -c 'import duckdb; print(duckdb.__version__)'
+python src/run_task4_curate.py task3-YYYYMMDD-XX
 ```
 
-Không dán JSON trực tiếp tại dấu nhắc `$`. JSON phải được dán trong
-`nano` hoặc trình soạn thảo rồi lưu thành file.
+Wrapper phát `START` khi bắt đầu thật, `COMPLETE` sau khi Task 3 và C01–C05 đạt; lỗi thực thi phát `FAIL`, ngắt phát `ABORT`. Cặp thành công dùng chung một UUID. Event được kiểm tra bằng schema chính thức lưu tại `schemas/openlineage-2-0-2.schema.json`, RunEvent là `#/$defs/RunEvent`. Không tạo event thủ công sau khi run kết thúc. File hiện tại: `evidence/task4/runs/task3-20261012-01/lineage.jsonl`; bản gốc `evidence/task4/lineage.jsonl` được đồng bộ từ file đó. Publish ở T5 cần UUID và cặp event riêng.
 
-## 3. Tạo `catalog.json`
+## Catalog, quality và run-record
 
-`catalog.json` là danh mục metadata, không phải bản sao của dữ liệu. Nó cho
-biết dataset nằm ở đâu, có bao nhiêu dòng, schema gì, hash nào, owner và
-steward là ai, được tạo từ run nào và áp dụng retention policy nào.
+`catalog.json` gồm `raw`, `quarantine`, `curated_candidate`; duplicate ledger là supporting artifact. Metadata có owner/steward, classification, allowed use, location, schema/cột, AS_OF, row count, manifest/contract/code hashes, quality link, retention và provenance. Code-bundle SHA-256 tính từ các dòng SHA-256 của sáu file mã thực thi, sắp theo tên file.
 
-Catalog có ba dataset chính:
+Quality-after của run: `evidence/task4/runs/task3-20261012-01/quality_after.json` (8 chỉ số, 9.610 curated rows, 100 QA rows). Cohort và giới hạn của từng chỉ số phải đọc trong báo cáo; không suy ra tất cả bản ghi đều đúng hoặc đúng hạn.
 
-1. `raw`: raw telemetry với alias `observations_a.csv` và
-   `observations_b.jsonl`.
-2. `quarantine`: record bị loại khỏi curated.
-3. `curated_candidate`: dữ liệu sau curation.
-
-`duplicates.csv` là side artifact được tham chiếu từ `curated_candidate`.
-`qa_reference.csv` và `sensors.csv` là input hỗ trợ, không cộng vào số
-dòng raw telemetry.
-
-Tạo hoặc viết lại catalog:
+Run-record ghi UUID, thời gian thật, AS_OF, input/code/contract hashes, phiên bản Python/DuckDB/image, reviewer và output hashes. Reviewer hiện `PENDING_FINAL_REVIEW`; chưa có approval. Kiểm tra catalog:
 
 ```bash
-nano catalog.json
-```
-
-Mỗi dataset cần các field:
-
-```text
-dataset_id, name, version, description, format, location,
-row_count, size_bytes, sha256, columns, owner, steward,
-source_run_id, quality_report, retention_policy, source_aliases,
-source_inputs, dependencies
-```
-
-Raw có union columns của hai source:
-
-```text
-record_id, sensor_id, event_time, ingest_time, reading, unit,
-operator_email, id, sensor, timestamp, arrived_at, temperature,
-temperature_unit, operator
-```
-
-Raw có tổng kích thước `1458467` bytes, tổng `10205` records. Hash tổng
-hợp của hai source được tạo bằng:
-
-```bash
-sha256sum \
-  data/Lab2-datasets/input/observations_a.csv \
-  data/Lab2-datasets/input/observations_b.jsonl \
-  | sha256sum
-```
-
-Hash hiện tại:
-
-```text
-1f73d6aed112f63782481be3297afb9a334850dc28621cfe7a355cbdaf93cbac
-```
-
-Kiểm tra syntax:
-
-```bash
-python3 -m json.tool catalog.json
-```
-
-## 4. Tạo OpenLineage START/COMPLETE
-
-`lineage.jsonl` ghi pipeline bắt đầu và hoàn thành. Hai event phải dùng
-cùng một UUID; nếu dùng hai UUID khác nhau thì không chứng minh được chúng
-thuộc cùng một run.
-
-```bash
-OPENLINEAGE_RUN_ID=$(python3 -c 'import uuid; print(uuid.uuid4())')
-EVENT_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-echo "$OPENLINEAGE_RUN_ID"
-echo "$EVENT_TIME"
-```
-
-Tạo file:
-
-```bash
-nano evidence/task4/lineage.jsonl
-```
-
-File phải có đúng hai dòng JSON theo thứ tự `START`, `COMPLETE`. Mỗi event
-cần có `eventType`, `eventTime`, `run.runId`, `job`, `producer`, `schemaURL`,
-`inputs` và `outputs`. Schema URL dùng OpenLineage 2-0-2 là:
-
-```text
-https://openlineage.io/spec/2-0-2/OpenLineage.json#/definitions/RunEvent
-```
-
-Kiểm tra:
-
-```bash
-wc -l evidence/task4/lineage.jsonl
-python3 -c 'import json; p="evidence/task4/lineage.jsonl"; x=[json.loads(l) for l in open(p) if l.strip()]; assert len(x)==2; assert [e["eventType"] for e in x]==["START","COMPLETE"]; assert x[0]["run"]["runId"]==x[1]["run"]["runId"]; print("lineage: OK")'
-```
-
-`wc -l` phải là 2. Dòng trống cũng làm số dòng tăng nên không để dòng
-trống trong JSONL.
-
-## 5. Tạo `run-record.json`
-
-`run-record.json` là hồ sơ audit của run, liên kết UUID, code, contract,
-input manifest, output và reviewer.
-
-Lấy hash code, contract và input:
-
-```bash
-sha256sum \
-  src/curate.sql \
-  src/run_curate.py \
-  contracts/contract.json \
-  contracts/curation_decisions.json \
-  data/trusted_manifest.json
-```
-
-Tạo file:
-
-```bash
-nano evidence/task4/run-record.json
-```
-
-`openlineage_run_id` phải bằng `run.runId` trong `lineage.jsonl`. Output
-phải ghi đúng số dòng và SHA-256 thật của ba artifact Task 3.
-
-```bash
-python3 -m json.tool evidence/task4/run-record.json >/dev/null \
-  && echo "run-record.json: OK"
-
-grep -o '"runId":"[^"]*"' evidence/task4/lineage.jsonl
-grep '"openlineage_run_id"' evidence/task4/run-record.json
-```
-
-Không được còn placeholder:
-
-```bash
-grep -nE '<[^>]+>' \
-  evidence/task4/lineage.jsonl \
-  evidence/task4/run-record.json
-```
-
-## 6. Tạo `retention-plan.json`
-
-Retention plan ghi quyết định lưu giữ/xóa ở chế độ dry-run. Nó không xóa
-file thật. Bốn case bắt buộc:
-
-```text
-ELIGIBLE
-KEEP/HOLD
-KEEP/ACTIVE_DEPENDENCY
-KEEP/NOT_EXPIRED
-```
-
-Tạo file:
-
-```bash
-nano evidence/task4/retention-plan.json
-```
-
-Mỗi case cần có `dataset_id`, `decision`, `dependency_status`,
-`hold_status`, `reason` và `action`. File phải có:
-
-```json
-"dry_run": true,
-"delete_executed": false
-```
-
-Kiểm tra:
-
-```bash
-python3 -m json.tool evidence/task4/retention-plan.json
-grep -E '"decision"|"dry_run"|"delete_executed"' \
-  evidence/task4/retention-plan.json
-```
-
-## 7. Tạo schema và semantic validator
-
-JSON Schema kiểm tra cấu trúc, kiểu dữ liệu và hash pattern. Semantic
-validator kiểm tra metadata có khớp file thật hay không.
-
-Tạo schema:
-
-```bash
-nano schemas/catalog.schema.json
-```
-
-Schema phải yêu cầu `catalog_version`, `run_id`, `datasets`, `artifacts`,
-ít nhất ba dataset và các field metadata của từng dataset. Hash phải khớp
-pattern:
-
-```text
-^[0-9a-f]{64}$
-```
-
-Tạo validator:
-
-```bash
-nano src/validate_catalog.py
-```
-
-Validator cần kiểm tra field bắt buộc, file tồn tại, size, SHA-256, row
-count và columns. Với Parquet, validator dùng DuckDB.
-
-Chạy:
-
-```bash
-source .venv-task2/bin/activate
 python src/validate_catalog.py
 ```
 
-Kết quả đạt:
+`CATALOG: PASS` là đạt. Cảnh báo S3 nghĩa là validator dựa vào stage report và file local, chưa tự tính hash trực tiếp từ object S3.
 
-```text
-CATALOG: PASS
-WARNING: raw: location S3 chưa kiểm tra trực tiếp
-```
+## Evidence truy vấn và truy vết
 
-Cảnh báo S3 không phải lỗi. Validator kiểm tra artifact local; raw được
-ghi nhận bằng S3 location và metadata/hash lấy từ input thật.
+`evidence/task4/runs/task3-20261012-01/catalog-queries.json` lưu M01/M02: tìm candidate có `temperature_c` đo bằng Celsius và quality link; tìm raw/quarantine restricted có retention và hold/dependency policy; candidate schema không có email.
 
-## 8. README Task 4
+`evidence/task4/runs/task3-20261012-01/row-traces.json` lưu:
 
-`README.md` là bản tóm tắt 250–400 từ. `Task4Tutorial.md` là hướng dẫn chi
-tiết, không thay thế README nếu rubric yêu cầu README riêng.
+- L02: curated `R001001` → `observations_b.jsonl` dòng 5101, đối chiếu source SHA-256, bản thắng/thua trong duplicate ledger, chuyển đổi nhiệt độ và registry site.
+- L03: quarantine `R000001` → dòng nguồn, source SHA-256, lý do chính và toàn bộ lý do (`REQUIRED`).
 
-README cần tóm tắt mục tiêu metadata, curated/quarantine/duplicates,
-catalog, OpenLineage, run-record, retention và quality-after evidence.
+File chỉ lưu trường cần truy vết, không lưu operator email. M03 cần thành viên khác đọc catalog, README và draft manifest rồi trả lời năm câu hỏi; việc này hoàn tất khi có draft manifest ở T5, không tự tạo câu trả lời giả.
+
+## Retention
+
+`evidence/task4/retention-plan.json` và bản theo run lưu 4 dry-run: scratch hết hạn → `ELIGIBLE`; quarantine hết hạn dưới hold → `KEEP / HOLD`; raw hết hạn còn approved-release dependency giả định → `KEEP / ACTIVE_DEPENDENCY`; object chưa hết hạn → `KEEP / NOT_EXPIRED`.
+
+Raw giữ 30 ngày từ retrieval, quarantine 7 ngày từ run completion, approved release 90 ngày từ publication. Audit/manifests giữ ít nhất hết vòng đời release. Hold/dependency chặn xóa. Bốn ca chỉ là mô phỏng; `delete_executed=false`.
+
+## README và kiểm tra cuối
+
+`evidence/task4/README.md` tóm tắt nguồn synthetic, khóa truy vết, timestamp/units, curation, quality, giới hạn sử dụng, phiên bản phần mềm và cách tái lập (345 từ).
 
 ```bash
+python -m json.tool catalog.json >/dev/null
+python -m json.tool evidence/task4/run-record.json >/dev/null
+python -m json.tool evidence/task4/retention-plan.json >/dev/null
+python src/validate_catalog.py
+cmp evidence/task4/lineage.jsonl evidence/task4/runs/task3-20261012-01/lineage.jsonl
+cmp evidence/task4/run-record.json evidence/task4/runs/task3-20261012-01/run-record.json
 wc -w evidence/task4/README.md
+git status --short
 ```
 
-## 9. Kiểm tra cuối cùng
-
-```bash
-python3 -m json.tool catalog.json >/dev/null
-python3 -m json.tool evidence/task4/run-record.json >/dev/null
-python3 -m json.tool evidence/task4/retention-plan.json >/dev/null
-python3 src/validate_catalog.py
-
-ls -lh \
-  catalog.json \
-  schemas/catalog.schema.json \
-  src/validate_catalog.py \
-  evidence/task4/lineage.jsonl \
-  evidence/task4/run-record.json \
-  evidence/task4/retention-plan.json \
-  evidence/task4/README.md \
-  Task4Tutorial.md
-```
-
-Sau Task 4, catalog cho biết dữ liệu nằm ở đâu và có hash nào; lineage cho
-biết dữ liệu đi qua pipeline nào; run record cho biết code và contract nào
-đã tạo output; validator chứng minh metadata khớp file thật; retention plan
-mô tả cách xử lý vòng đời mà chưa xóa file.
+Chỉ commit file Task 4 và evidence cần nộp. Không commit raw data, `outputs/`, `.venv-task2/`, file backup hoặc thay đổi Task 1–3 không liên quan.

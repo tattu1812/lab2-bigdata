@@ -1,0 +1,50 @@
+{
+  "run_id": "task3-20261012-01",
+  "L02": {
+    "query": "Read curated Parquet by record_id; join duplicates.csv; locate winner by source_object and source_row",
+    "record_id": "R001001",
+    "source_object": "observations_b.jsonl",
+    "source_row": 5101,
+    "source_sha256": "3072ad0b725ea3763ad4d1a7c744465f997614892dd1460f9cd815094ec61b70",
+    "raw_fields_without_operator": {
+      "record_id": "R001001",
+      "sensor_id": " s01 ",
+      "event_time": "2026-02-02T08:20:30Z",
+      "ingest_time": "2026-02-02T08:23:30Z",
+      "reading": "19.10",
+      "unit": " c "
+    },
+    "selected_version": {
+      "rule": "ingest_ts DESC, source_object ASC, source_row ASC",
+      "superseded_source_object": "observations_a.csv",
+      "superseded_source_row": 1001,
+      "superseded_source_sha256": "5157418915d867980fac8d84551a8b856bba1669ca2e33cef91a15ee82101aea"
+    },
+    "transformation": {
+      "rule": "C unchanged; F converted by (F-32)*5/9; ROUND_HALF_UP to 2 decimals; site joined from sensors registry",
+      "computed_temperature_c": "19.10",
+      "curated_temperature_c": "19.10",
+      "curated_site": "zone-1"
+    }
+  },
+  "L03": {
+    "query": "Read quarantine.csv; locate physical source row by source_object and source_row",
+    "record_id": "R000001",
+    "source_object": "observations_a.csv",
+    "source_row": 1,
+    "source_sha256": "5157418915d867980fac8d84551a8b856bba1669ca2e33cef91a15ee82101aea",
+    "raw_fields_without_operator": {
+      "record_id": "R000001",
+      "sensor_id": "S01",
+      "event_time": "2026-02-02T00:00:30Z",
+      "ingest_time": "2026-02-02T00:01:30Z",
+      "reading": "",
+      "unit": "C"
+    },
+    "stage": "WINNER",
+    "primary_reason": "REQUIRED",
+    "all_reasons": [
+      "REQUIRED"
+    ]
+  }
+}
