@@ -1,0 +1,49 @@
+{
+  "plan_version": "1.0",
+  "run_id": "task3-20261011-01",
+  "dry_run": true,
+  "delete_executed": false,
+  "policy_owner": "Hải Anh",
+  "cases": [
+    {
+      "case_id": "R01",
+      "dataset_id": "old-temporary-artifact",
+      "decision": "ELIGIBLE",
+      "retention_status": "EXPIRED",
+      "dependency_status": "NONE",
+      "hold_status": "NONE",
+      "reason": "Artifact đã hết thời hạn lưu giữ và không còn dependency hoạt động.",
+      "action": "Có thể xóa trong production sau khi được phê duyệt."
+    },
+    {
+      "case_id": "R02",
+      "dataset_id": "curated_candidate",
+      "decision": "KEEP/HOLD",
+      "retention_status": "REVIEW_HOLD",
+      "dependency_status": "NONE",
+      "hold_status": "ACTIVE",
+      "reason": "Dataset đang được giữ để review và bàn giao.",
+      "action": "Giữ lại."
+    },
+    {
+      "case_id": "R03",
+      "dataset_id": "raw",
+      "decision": "KEEP/ACTIVE_DEPENDENCY",
+      "retention_status": "NOT_ELIGIBLE",
+      "dependency_status": "ACTIVE",
+      "hold_status": "NONE",
+      "reason": "Raw input vẫn là dependency của lineage và khả năng tái lập pipeline.",
+      "action": "Giữ lại."
+    },
+    {
+      "case_id": "R04",
+      "dataset_id": "duplicates",
+      "decision": "KEEP/NOT_EXPIRED",
+      "retention_status": "NOT_EXPIRED",
+      "dependency_status": "NONE",
+      "hold_status": "NONE",
+      "reason": "Artifact chưa vượt quá thời hạn lưu giữ.",
+      "action": "Giữ lại cho đến khi hết hạn."
+    }
+  ]
+}
