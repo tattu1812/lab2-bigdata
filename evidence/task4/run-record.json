@@ -1,23 +1,18 @@
 {
-  "run_id": "task3-20261012-01",
-  "openlineage_run_id": "f4ea06e1-5465-4728-8491-cf92235271bb",
-  "job_name": "task3-curation",
+  "run_id": "task3-20261011-01",
+  "openlineage_run_id": "3f70d075-153c-48c8-acca-2e55702c018c",
+  "job_name": "curate-task3-20261011-01",
   "status": "COMPLETE",
-  "reason_code": "SUCCESS",
-  "start_time": "2026-10-12T09:15:30.689Z",
-  "end_time": "2026-10-12T09:15:48.725Z",
-  "as_of": "2026-02-09T00:00:00Z",
-  "store_id": "file:///home/haianhvu_08/lab2-bigdata",
-  "input_store_id": "s3://research-raw",
-  "operator": "Vũ Hải Anh",
-  "reviewer": "Vũ Hải Anh",
-  "review_status": "PENDING_FINAL_REVIEW",
-  "review_independent": false,
-  "task3_code_author": "Nguyễn Quốc Khánh",
-  "source_run_id": "task1-20261012-01",
-  "input_manifest": {
-    "path": "data/trusted_manifest.json",
-    "sha256": "77dacfdb5a8b4e82fb2316990972de731a51b31f9fc052d739d0dea78e992331"
+  "reviewer": "Hải Anh",
+  "code": {
+    "sql": {
+      "path": "src/curate.sql",
+      "sha256": "ee1650d5aa4c3af82c63fb41db06519763d4f4749aeb55767298cbd98c8c5afa"
+    },
+    "runner": {
+      "path": "src/run_curate.py",
+      "sha256": "574b88e6bd058cc5ff6555fe162b17dd30cef4f83fc7ac51c0f44b6cff75da96"
+    }
   },
   "contract": {
     "path": "contracts/contract.json",
@@ -27,47 +22,25 @@
     "path": "contracts/curation_decisions.json",
     "sha256": "68899639b17752f0067e51c0ae6e1e278f8bb4c634c19cc9f889243b1f78fc5d"
   },
-  "code_sha256": "b03f9865f0df081469287850510281702a19011d1c6804440ac12bdaa819f0b0",
-  "code_bundle_method": "SHA-256 of sha256sum lines ordered by filename",
-  "code_files": {
-    "src/curate.sql": "ee1650d5aa4c3af82c63fb41db06519763d4f4749aeb55767298cbd98c8c5afa",
-    "src/run_curate.py": "574b88e6bd058cc5ff6555fe162b17dd30cef4f83fc7ac51c0f44b6cff75da96",
-    "src/run_task3.sh": "f00163fa259f07b8f94da941f1147c748b7aff755a4259c2923d9da91f2555e8",
-    "src/run_task4_curate.py": "c8c7c4ffc98ceebff3ac0f9869d640f35ca2d2594ddde734b359799d277b23c2",
-    "src/test_curate.py": "cba3eff1b4613b7b432d194737ae7cc19ad076cfe1b55c886cae5a90cce4597c",
-    "src/validate_contract.py": "a799ed2092ff5f8ae2acdff248048b4670e1fd75c6dcb48315394248ae451161"
-  },
-  "software": {
-    "python": "3.12.15",
-    "duckdb": "1.4.1",
-    "container_image": "docker.io/trunglizabeth/s3lab@sha256:b9e7cf4d42d76b3c6e238ba4c4163bab5324ade9160ca4b5cd826d6bdcfabe93"
-  },
-  "inputs": {
-    "observations_a_sha256": "5157418915d867980fac8d84551a8b856bba1669ca2e33cef91a15ee82101aea",
-    "observations_b_sha256": "3072ad0b725ea3763ad4d1a7c744465f997614892dd1460f9cd815094ec61b70",
-    "sensors_sha256": "02c390e127c37b9d12e9ca156eae23a450ad1ae037001cddd9651bb6516b9bde",
-    "envelopes_sha256": "0f267260475c34ce9d6cfb0dbfe726f8f8e05d474c5939bab64e20676e33fd19"
+  "input": {
+    "path": "data/trusted_manifest.json",
+    "sha256": "77dacfdb5a8b4e82fb2316990972de731a51b31f9fc052d739d0dea78e992331"
   },
   "outputs": [
     {
-      "path": "outputs/curate/task3-20261012-01/candidate/curated.parquet",
+      "path": "outputs/curate/task3-20261011-01/candidate/curated.parquet",
       "row_count": 9610,
-      "size_bytes": 209500,
       "sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d"
     },
     {
-      "path": "outputs/curate/task3-20261012-01/quarantine.csv",
+      "path": "outputs/curate/task3-20261011-01/quarantine.csv",
       "row_count": 395,
-      "size_bytes": 47225,
       "sha256": "2b7a219a160a71f1cbe7dbcd7c13c9f2f757b5ef75a1382849bb40e88ed3b61b"
     },
     {
-      "path": "outputs/curate/task3-20261012-01/duplicates.csv",
+      "path": "outputs/curate/task3-20261011-01/duplicates.csv",
       "row_count": 200,
-      "size_bytes": 39817,
       "sha256": "c0c31ea812966ceb25af853c1700e865f9f0202cdb4f49c6cda32e5b1df5256c"
     }
-  ],
-  "lineage_path": "evidence/task4/runs/task3-20261012-01/lineage.jsonl",
-  "task3_checks": "evidence/task3/runs/task3-20261012-01/curate-checks.json"
+  ]
 }

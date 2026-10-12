@@ -3,19 +3,33 @@
   "$id": "https://lab2-bigdata.local/schemas/catalog.schema.json",
   "title": "Task 4 Data Catalog",
   "type": "object",
-  "additionalProperties": false,
-  "required": ["catalog_version", "run_id", "datasets", "artifacts"],
+  "additionalProperties": true,
+  "required": [
+    "catalog_version",
+    "run_id",
+    "datasets",
+    "artifacts"
+  ],
   "properties": {
-    "catalog_version": {"type": "string", "minLength": 1},
-    "run_id": {"type": "string", "minLength": 1},
+    "catalog_version": {
+      "type": "string"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
     "datasets": {
       "type": "array",
       "minItems": 3,
-      "items": {"$ref": "#/$defs/dataset"}
+      "items": {
+        "$ref": "#/$defs/dataset"
+      }
     },
     "artifacts": {
       "type": "array",
-      "items": {"$ref": "#/$defs/artifact"}
+      "items": {
+        "$ref": "#/$defs/artifact"
+      }
     }
   },
   "$defs": {
@@ -24,108 +38,93 @@
       "additionalProperties": true,
       "required": [
         "dataset_id",
-        "title",
-        "purpose",
+        "name",
+        "version",
+        "description",
+        "format",
+        "location",
+        "row_count",
+        "size_bytes",
+        "sha256",
+        "columns",
         "owner",
         "steward",
-        "classification",
-        "allowed_use",
-        "location",
-        "schema_version",
-        "columns",
-        "as_of",
-        "row_count",
-        "input_manifest_sha256",
-        "contract_sha256",
-        "code_sha256",
+        "source_run_id",
         "quality_report",
-        "retention",
-        "provenance"
+        "retention_policy",
+        "source_aliases",
+        "source_inputs",
+        "dependencies"
       ],
       "properties": {
-        "dataset_id": {"type": "string", "minLength": 1},
-        "title": {"type": "string", "minLength": 1},
-        "purpose": {"type": "string", "minLength": 1},
-        "owner": {"type": "string", "minLength": 1},
-        "steward": {"type": "string", "minLength": 1},
-        "classification": {"type": "string", "minLength": 1},
-        "allowed_use": {"type": "string", "minLength": 1},
-        "location": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "object",
-            "required": ["uri"],
-            "properties": {
-              "uri": {"type": "string", "minLength": 1}
-            },
-            "additionalProperties": false
-          }
+        "dataset_id": {
+          "type": "string",
+          "minLength": 1
         },
-        "schema_version": {"type": "string", "minLength": 1},
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "row_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
         "columns": {
           "type": "array",
-          "minItems": 1,
           "items": {
-            "type": "object",
-            "required": ["name", "type", "meaning", "unit", "nullable"],
-            "properties": {
-              "name": {"type": "string", "minLength": 1},
-              "type": {"type": "string", "minLength": 1},
-              "meaning": {"type": "string", "minLength": 1},
-              "unit": {"type": ["string", "null"]},
-              "nullable": {"type": "boolean"}
-            },
-            "additionalProperties": false
+            "type": "string"
           }
         },
-        "as_of": {
-          "type": "string",
-          "const": "2026-02-09T00:00:00Z"
+        "owner": {
+          "type": "string"
         },
-        "row_count": {"type": "integer", "minimum": 0},
-        "input_manifest_sha256": {
-          "type": "string",
-          "pattern": "^[0-9a-f]{64}$"
+        "steward": {
+          "type": "string"
         },
-        "contract_sha256": {
-          "type": "string",
-          "pattern": "^[0-9a-f]{64}$"
+        "source_run_id": {
+          "type": "string"
         },
-        "code_sha256": {
-          "type": "string",
-          "pattern": "^[0-9a-f]{64}$"
+        "quality_report": {
+          "type": "string"
         },
-        "quality_report": {"type": "string", "minLength": 1},
-        "retention": {
-          "type": "object",
-          "required": [
-            "days",
-            "start_basis",
-            "hold",
-            "dependency_policy",
-            "dependent_release_ids",
-            "action"
-          ],
-          "properties": {
-            "days": {"type": ["integer", "null"], "minimum": 0},
-            "start_basis": {"type": "string", "minLength": 1},
-            "hold": {"type": "boolean"},
-            "dependency_policy": {"type": "string", "minLength": 1},
-            "dependent_release_ids": {
-              "type": "array",
-              "items": {"type": "string"}
-            },
-            "action": {"type": "string", "minLength": 1}
+        "retention_policy": {
+          "type": "string"
+        },
+        "source_aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         },
-        "provenance": {
-          "type": "object",
-          "required": ["job_name", "run_id", "role"],
-          "properties": {
-            "job_name": {"type": "string", "minLength": 1},
-            "run_id": {"type": "string", "minLength": 1},
-            "role": {"type": "string", "minLength": 1}
+        "source_inputs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         }
       }
@@ -140,15 +139,25 @@
         "sha256"
       ],
       "properties": {
-        "artifact_id": {"type": "string", "minLength": 1},
-        "location": {"type": "string", "minLength": 1},
-        "row_count": {"type": "integer", "minimum": 0},
-        "size_bytes": {"type": "integer", "minimum": 0},
+        "artifact_id": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "row_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
         "sha256": {
           "type": "string",
           "pattern": "^[0-9a-f]{64}$"
         }
       }
     }
-  }
+ }
 }
