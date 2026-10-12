@@ -1,0 +1,35 @@
+{
+  "cross_check": "B (Trung Nguyễn) → C (Khánh): tính lại C01 + duy nhất record_id bằng truy vấn riêng",
+  "artifacts": "outputs/curate/task3-20261012-01",
+  "duckdb": "1.4.1",
+  "prediction": "10205 = 9610 + 395 + 200; mất 0, thừa 0, chồng lấn 0; 9610 record_id khác nhau.",
+  "observed": {
+    "raw_total": 10205,
+    "raw_distinct_physical_keys": 10205,
+    "curated_total": 9610,
+    "quarantine_total": 395,
+    "duplicates_total": 200,
+    "missing_from_outputs": 0,
+    "extra_in_outputs": 0,
+    "keys_in_more_than_one_place": 0,
+    "curated_vs_quarantine": 0,
+    "curated_vs_duplicates": 0,
+    "quarantine_vs_duplicates": 0,
+    "curated_distinct_record_ids": 9610,
+    "curated_null_record_ids": 0
+  },
+  "checks": {
+    "raw_total": "PASS",
+    "raw_distinct_physical_keys": "PASS",
+    "missing_from_outputs": "PASS",
+    "extra_in_outputs": "PASS",
+    "keys_in_more_than_one_place": "PASS",
+    "curated_vs_quarantine": "PASS",
+    "curated_vs_duplicates": "PASS",
+    "quarantine_vs_duplicates": "PASS",
+    "curated_null_record_ids": "PASS",
+    "conservation_sum": "PASS",
+    "curated_record_id_unique": "PASS"
+  },
+  "status": "PASS"
+}

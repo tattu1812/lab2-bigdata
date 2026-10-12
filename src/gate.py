@@ -322,7 +322,11 @@ def g06(ctx):
     return reasons, observed
 
 
-FILLED = lambda v: v not in (None, "", [], {})  # noqa: E731
+def FILLED(v):
+    """Có giá trị thật. Chuỗi chỉ có khoảng trắng tính là thiếu (như normalization của contract)."""
+    if isinstance(v, str):
+        return bool(v.strip())
+    return v not in (None, [], {})
 
 
 @check("G07", "METADATA")

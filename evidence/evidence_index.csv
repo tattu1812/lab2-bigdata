@@ -18,3 +18,9 @@ Trung,,./src/run_task3.sh task3-20261012-02 (rerun; artifact trùng SHA-256 vớ
 Trung,,./src/run_task5.sh gate-tests task3-20261012-01 gatetest-20261012-03 release-20261012,gatetest-20261012-03,research-telemetry-v1,evidence/task5/gate-tests.json
 Trung,,./src/run_task5.sh crosscheck task3-20261012-01 qacheck-20261012-02,qacheck-20261012-02,research-telemetry-v1,evidence/task5/qa-crosscheck.json
 Trung,,consumer_check.py --release-id release-20261012-02 (kiểm lại sau khi tạo lại Pod),release-20261012-02,research-telemetry-v1,evidence/task5/runs/reverify-20261012-02-consumer/consumer-check.json
+Trung,,trace_record.py --accepted R001001 --quarantined R001051 (Pod curate),task3-20261012-01,research-telemetry-v1,evidence/task4/trace-L02-L03.json
+Trung,,python3 individual/A-tu/l02_rerun.py (kiểm tra chéo của Tú – Tú cần tự chạy lại),task3-20261012-01,research-telemetry-v1,individual/A-tu/l02-rerun.json
+Trung,,c01_crosscheck.py (kiểm tra chéo của Trung Nguyễn – cần tự chạy lại) --artifacts outputs/curate/task3-20261012-01 (Pod curate),task3-20261012-01,research-telemetry-v1,individual/B-trung-nguyen/c01-crosscheck.json
+Trung,,python3 individual/C-khanh/i03_recheck.py (kiểm tra chéo của Khánh – Khánh cần tự chạy lại),task1-20261012-02,research-telemetry-v1,individual/C-khanh/i03-recheck.json
+Trung,,p05_check.py (kiểm tra chéo của Hải Anh – cần tự chạy lại) --base /work/bundles/gatetest-20261012-04 (Pod publisher; gate trước và sau khi sửa),gatetest-20261012-04,research-telemetry-v1,individual/D-hai-anh/p05-check.json
+Trung,Hải Anh,./src/run_task5.sh gate-tests task3-20261012-01 gatetest-20261012-04 release-20261012 (gate đã sửa FILLED),gatetest-20261012-04,research-telemetry-v1,evidence/task5/gate-tests.json

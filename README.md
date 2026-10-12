@@ -20,7 +20,12 @@ nhưng không đọc được raw (HTTP 403).
 | Trung | E – Release (Task 5) | gate G01–G09, đột biến P01–P08, publish, consumer, gom bài |
 
 Chi tiết đóng góp, kiểm tra chéo và quyết định thiết kế của từng người nằm trong
-[`contributions.csv`](contributions.csv).
+[`contributions.csv`](contributions.csv). Bản phân công ban đầu ghi Khánh làm A và Tú làm C.
+Bảng trên theo người thực sự làm, xác định từ lịch sử git.
+
+**Phần cá nhân** nằm trong [`individual/`](individual/README.md). Mỗi người có thay đổi kỹ
+thuật, một kiểm tra chéo đã chạy thật (A→D truy vết L02, B→C bảo toàn, C→A I03, D→E gate
+P05, E→B QA) và 6 câu hỏi cá nhân.
 
 ## Kết quả chính
 
@@ -47,6 +52,7 @@ Mỗi khóa vật lý `(source_object, source_row)` xuất hiện đúng một l
 | I01–I04 (integrity, envelope, mutation, S3 access) | PASS | `evidence/task1/` |
 | C01–C05 (bảo toàn, tất định, schema, ca biên, metric) | PASS | `evidence/task3/runs/<run>/curate-checks.json` |
 | Catalog / lineage / run-record | `CATALOG: PASS` | `catalog.json`, `evidence/task4/` |
+| Truy vết L02 (dòng curated) / L03 (dòng quarantine) | PASS; L02 được Tú chạy lại độc lập | `evidence/task4/trace-L02-L03.json` |
 | Gate G01–G09 trên candidate thật | PASS 9/9 | `evidence/task5/runs/*/P01-gate-report.json` |
 | Đột biến P02–P08 | 7/7 bị REJECT, publish bị từ chối, `s3_writes = 0` | `evidence/task5/gate-tests.json` |
 | Kiểm tra chéo QA (DECIMAL) | 100/100, 95/100, khớp `quality_after.json` | `evidence/task5/qa-crosscheck.json` |
@@ -132,12 +138,35 @@ fixture), `envelopes.jsonl`, `.env`, kubeconfig hoặc file trong `data/`.
   Khánh. Reviewer là Hải Anh nên điều kiện review độc lập vẫn đúng.
 - [`evidence/task3/contract-review.md`](evidence/task3/contract-review.md): hash contract
   trong bảng duyệt được tính trên bản CRLF. Nội dung contract không đổi.
+- [`evidence/task5/finding-20261012-03-blank-steward.md`](evidence/task5/finding-20261012-03-blank-steward.md):
+  kiểm tra chéo của Hải Anh phát hiện gate chấp nhận `steward` chỉ có khoảng trắng. Gate đã
+  được sửa và P01–P08 chạy lại (`gatetest-20261012-04`). Release hiện hành không bị ảnh hưởng.
+
+## Hạn chế đã biết
+
+Các điểm dưới đây chưa đạt đầy đủ yêu cầu của đề. Nhóm ghi lại thay vì báo PASS:
+
+- `catalog.json` chưa có một số trường đề liệt kê (`title`, `purpose`, `classification`,
+  `allowed_use`, `schema_version`, `as_of`; `columns` chưa có `unit/meaning/nullable`;
+  `retention` chưa có `days/start_basis`). Catalog này đã nằm trong `release-20261012-02`,
+  nên muốn bổ sung phải làm catalog mới, chạy lại gate và review, rồi công bố release mới.
+- Truy vấn M01, M02 và bài kiểm tra người dùng M03 chưa có evidence.
+- `publish.py` chưa phát `ABORT` khi gate hoặc review từ chối. Nó dừng trước START nên không
+  có event nào; event `FAIL` chỉ được phát khi upload hoặc verify lỗi.
+- Lineage curate ghi input ở mức prefix S3 và namespace `lab2-bigdata`, chưa tách
+  `sensors.csv`/contract thành dataset riêng và chưa dùng namespace `urn:bigdata:<store_id>`.
+- C02 chỉ chạy lại với envelope đảo ngược thứ tự, chưa xáo trộn ngẫu nhiên.
 
 ## Khai báo sử dụng AI
 
-Nhóm dùng trợ lý AI (Claude Code) ở vai E cho các việc sau: chạy lại toàn bộ pipeline
-để kiểm tra tái lập, đối chiếu evidence, soạn `README.md`/`SUBMISSION.md`, soạn erratum
-và điền `contributions.csv` dựa trên evidence và lịch sử git. Mọi số liệu trong tài liệu
+Nhóm dùng trợ lý AI (Claude Code) ở vai E cho các việc sau:
+
+- chạy lại toàn bộ pipeline để kiểm tra tái lập và đối chiếu evidence;
+- soạn `README.md`, `SUBMISSION.md`, erratum và finding;
+- điền `contributions.csv` dựa trên evidence và lịch sử git;
+- viết `src/trace_record.py` (L02/L03) và các script kiểm tra chéo trong `individual/`;
+- soạn bản nháp `individual/*/answers.md`;
+- sửa `FILLED` trong `gate.py`. Mọi số liệu trong tài liệu
 được lấy từ file evidence do script sinh ra, không do AI tự đặt. Mỗi thành viên phải tự
 xác nhận dòng của mình trong `contributions.csv` (cột `confirmed_by_member`) và bổ sung
 phần AI hỗ trợ trong task của mình nếu có.

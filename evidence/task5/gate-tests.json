@@ -1,9 +1,9 @@
 {
-  "test_id": "gatetest-20261012-03",
+  "test_id": "gatetest-20261012-04",
   "curate_run_id": "task3-20261012-01",
   "operator": "Trung",
-  "executed_at": "2026-10-12T13:21:42Z",
-  "gate_sha256": "1d773e98821e5ee98d17aed848d8a5d548e5fe341e46d5bacd35341381eaba3c",
+  "executed_at": "2026-10-12T13:56:28Z",
+  "gate_sha256": "31c136a27b5f991d0b59547d2feab46dd95bb33488d0d10da2b2b743f3e6a8d8",
   "base_bundle_unchanged": true,
   "base_bundle_digest": "c7935010f0525909348c2067a319c8682acb4f5cb6fdd3a7c096a5d1c5c18581",
   "cases": [
@@ -23,8 +23,8 @@
       "candidate_sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
       "result": "PASS",
       "operator": "Trung",
-      "started_at": "2026-10-12T13:21:33Z",
-      "finished_at": "2026-10-12T13:21:34Z"
+      "started_at": "2026-10-12T13:56:19Z",
+      "finished_at": "2026-10-12T13:56:20Z"
     },
     {
       "case_id": "P02",
@@ -60,8 +60,8 @@
       "candidate_sha256": "2c63e5a34fb6460dbfa756b3a660eb5d50c33484efe6b49ef6c8dc737e088bdb",
       "result": "PASS",
       "operator": "Trung",
-      "started_at": "2026-10-12T13:21:34Z",
-      "finished_at": "2026-10-12T13:21:34Z",
+      "started_at": "2026-10-12T13:56:20Z",
+      "finished_at": "2026-10-12T13:56:20Z",
       "publish_attempt": {
         "release_id": "release-20261012-P02",
         "status": "REFUSED",
@@ -110,8 +110,8 @@
       "candidate_sha256": "53acf0b0b2ae9781063ea141706ff01c948b67989a05fdc1b0cf44c054a37875",
       "result": "PASS",
       "operator": "Trung",
-      "started_at": "2026-10-12T13:21:35Z",
-      "finished_at": "2026-10-12T13:21:36Z",
+      "started_at": "2026-10-12T13:56:21Z",
+      "finished_at": "2026-10-12T13:56:22Z",
       "publish_attempt": {
         "release_id": "release-20261012-P03",
         "status": "REFUSED",
@@ -164,8 +164,8 @@
       "candidate_sha256": "8bde6092241dce32281d378a9e03d7a1446b940915afecc44a7f3725218beaf1",
       "result": "PASS",
       "operator": "Trung",
-      "started_at": "2026-10-12T13:21:36Z",
-      "finished_at": "2026-10-12T13:21:37Z",
+      "started_at": "2026-10-12T13:56:22Z",
+      "finished_at": "2026-10-12T13:56:23Z",
       "publish_attempt": {
         "release_id": "release-20261012-P04",
         "status": "REFUSED",
@@ -198,8 +198,8 @@
       "candidate_sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
       "result": "PASS",
       "operator": "Trung",
-      "started_at": "2026-10-12T13:21:37Z",
-      "finished_at": "2026-10-12T13:21:38Z",
+      "started_at": "2026-10-12T13:56:24Z",
+      "finished_at": "2026-10-12T13:56:24Z",
       "publish_attempt": {
         "release_id": "release-20261012-P05",
         "status": "REFUSED",
@@ -234,8 +234,8 @@
       "candidate_sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
       "result": "PASS",
       "operator": "Trung",
-      "started_at": "2026-10-12T13:21:38Z",
-      "finished_at": "2026-10-12T13:21:39Z",
+      "started_at": "2026-10-12T13:56:25Z",
+      "finished_at": "2026-10-12T13:56:25Z",
       "publish_attempt": {
         "release_id": "release-20261012-P06",
         "status": "REFUSED",
@@ -268,8 +268,8 @@
       "candidate_sha256": "3c9762d7fc0667bc6ca850806e57a71b10e7552acd625251bd8229054046f58d",
       "result": "PASS",
       "operator": "Trung",
-      "started_at": "2026-10-12T13:21:39Z",
-      "finished_at": "2026-10-12T13:21:40Z",
+      "started_at": "2026-10-12T13:56:26Z",
+      "finished_at": "2026-10-12T13:56:27Z",
       "publish_attempt": {
         "release_id": "release-20261012-P07",
         "status": "REFUSED",
@@ -320,8 +320,8 @@
       "candidate_sha256": "0eb3276d9368bd9cbf4c41cb8b0d8838ba374197436865b6b78ca4632a70d328",
       "result": "PASS",
       "operator": "Trung",
-      "started_at": "2026-10-12T13:21:41Z",
-      "finished_at": "2026-10-12T13:21:41Z",
+      "started_at": "2026-10-12T13:56:27Z",
+      "finished_at": "2026-10-12T13:56:28Z",
       "publish_attempt": {
         "release_id": "release-20261012-P08",
         "status": "REFUSED",

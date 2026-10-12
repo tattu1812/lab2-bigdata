@@ -51,7 +51,7 @@ for p in sorted(Path("evidence/task3/runs").rglob("*.json")):   # các run tái 
 add("evidence/task3/contract-review.md")
 # Hải Anh – Task 4
 add("catalog.json"); add("schemas/catalog.schema.json")
-for f in ("README.md", "lineage.jsonl", "run-record.json", "retention-plan.json"):
+for f in ("README.md", "lineage.jsonl", "run-record.json", "retention-plan.json", "trace-L02-L03.json"):
     add(f"evidence/task4/{f}")
 # Trung – Task 5
 for f in ("gate-tests.json", "consumer-check.json", "release_manifest.json",
@@ -65,8 +65,9 @@ for p in sorted(Path("evidence/task5/runs").rglob("*")):
 # Chung
 add("README.md"); add("SUBMISSION.md")
 add("contributions.csv"); add("evidence/evidence_index.csv")
-for p in sorted(Path("individual").glob("*.md")):
-    add(str(p))
+for p in sorted(Path("individual").rglob("*")):                # phần cá nhân + kiểm tra chéo
+    if p.is_file() and p.suffix in (".md", ".py", ".json", ".txt"):
+        add(str(p))
 for t in ("Task1Tutorial.md", "Task2Tutorial.md", "Task3Tutorial.md", "Task4Tutorial.md", "Task5Tutorial.md"):
     add(t, f"docs/{t}")
 

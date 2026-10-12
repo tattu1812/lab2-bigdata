@@ -1,0 +1,147 @@
+{
+  "artifacts": "outputs/curate/task3-20261012-01",
+  "trusted_manifest_sha256": "77dacfdb5a8b4e82fb2316990972de731a51b31f9fc052d739d0dea78e992331",
+  "L02": {
+    "record_id": "R001001",
+    "versions": [
+      {
+        "source_object": "observations_b.jsonl",
+        "source_row": 5101,
+        "source_sha256_trusted": "3072ad0b725ea3763ad4d1a7c744465f997614892dd1460f9cd815094ec61b70",
+        "parse_status": "OK",
+        "fields": {
+          "record_id": "R001001",
+          "sensor_id": " s01 ",
+          "event_time": "2026-02-02T08:20:30Z",
+          "ingest_time": "2026-02-02T08:23:30Z",
+          "reading": "19.10",
+          "unit": " c "
+        },
+        "status": {
+          "output": "curated"
+        },
+        "rank": 1
+      },
+      {
+        "source_object": "observations_a.csv",
+        "source_row": 1001,
+        "source_sha256_trusted": "5157418915d867980fac8d84551a8b856bba1669ca2e33cef91a15ee82101aea",
+        "parse_status": "OK",
+        "fields": {
+          "record_id": "R001001",
+          "sensor_id": " s01 ",
+          "event_time": "2026-02-02T08:20:30Z",
+          "ingest_time": "2026-02-02T08:21:30Z",
+          "reading": "18.10",
+          "unit": " c "
+        },
+        "status": {
+          "output": "duplicates",
+          "reason": "SUPERSEDED",
+          "winner": [
+            "observations_b.jsonl",
+            5101
+          ]
+        },
+        "rank": 2
+      }
+    ],
+    "selected_version": [
+      "observations_b.jsonl",
+      5101
+    ],
+    "rules": [
+      "dedup: ingest_time DESC, source_object ASC, source_row ASC → rank 1 là winner",
+      "chuẩn hóa: trim + upper cho record_id, sensor_id, unit",
+      "đơn vị: C giữ nguyên, F → (F − 32) × 5/9; làm tròn HALF_UP 2 chữ số, DECIMAL(8,2)",
+      "is_late = ingest − event > 900 s; site lấy từ sensors.csv"
+    ],
+    "curated_row_expected": {
+      "temperature_c": "19.10",
+      "sensor_id": "S01",
+      "site": "zone-1",
+      "event_time_utc": "2026-02-02T08:20:30",
+      "ingest_time_utc": "2026-02-02T08:23:30",
+      "is_late": false,
+      "source_sha256": "3072ad0b725ea3763ad4d1a7c744465f997614892dd1460f9cd815094ec61b70"
+    },
+    "curated_row_observed": {
+      "temperature_c": "19.10",
+      "sensor_id": "S01",
+      "site": "zone-1",
+      "event_time_utc": "2026-02-02T08:20:30",
+      "ingest_time_utc": "2026-02-02T08:23:30",
+      "is_late": false,
+      "source_sha256": "3072ad0b725ea3763ad4d1a7c744465f997614892dd1460f9cd815094ec61b70"
+    },
+    "others_superseded": true,
+    "status": "PASS"
+  },
+  "L03": {
+    "record_id": "R001051",
+    "versions": [
+      {
+        "source_object": "observations_b.jsonl",
+        "source_row": 5151,
+        "source_sha256_trusted": "3072ad0b725ea3763ad4d1a7c744465f997614892dd1460f9cd815094ec61b70",
+        "parse_status": "OK",
+        "fields": {
+          "record_id": "R001051",
+          "sensor_id": "S11",
+          "event_time": "2026-02-02T08:45:30Z",
+          "ingest_time": "2026-02-02T08:48:30Z",
+          "reading": "",
+          "unit": "C"
+        },
+        "status": {
+          "output": "quarantine",
+          "stage": "WINNER",
+          "primary_reason": "REQUIRED",
+          "reasons": [
+            "REQUIRED"
+          ]
+        },
+        "rank": 1
+      },
+      {
+        "source_object": "observations_a.csv",
+        "source_row": 1051,
+        "source_sha256_trusted": "5157418915d867980fac8d84551a8b856bba1669ca2e33cef91a15ee82101aea",
+        "parse_status": "OK",
+        "fields": {
+          "record_id": "R001051",
+          "sensor_id": "S11",
+          "event_time": "2026-02-02T08:45:30Z",
+          "ingest_time": "2026-02-02T08:46:30Z",
+          "reading": "23.10",
+          "unit": "C"
+        },
+        "status": {
+          "output": "duplicates",
+          "reason": "SUPERSEDED",
+          "winner": [
+            "observations_b.jsonl",
+            5151
+          ]
+        },
+        "rank": 2
+      }
+    ],
+    "selected_version": [
+      "observations_b.jsonl",
+      5151
+    ],
+    "recomputed": {
+      "missing_required_fields": [
+        "reading"
+      ]
+    },
+    "rules": [
+      "winner được chọn TRƯỚC khi validate; winner lỗi → quarantine (stage WINNER)",
+      "không fallback: các bản cũ hơn vẫn là SUPERSEDED trong duplicates.csv",
+      "primary_reason theo thứ tự REQUIRED, NUMERIC, UNIT, RANGE, TIME_PARSE, TIME_ORDER, REFERENCE"
+    ],
+    "status": "PASS"
+  },
+  "status": "PASS"
+}

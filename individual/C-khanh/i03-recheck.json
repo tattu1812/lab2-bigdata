@@ -1,0 +1,123 @@
+{
+  "cross_check": "C (Khánh) → A (Tú): I03 trên bản sao khác, sửa byte ở vị trí khác",
+  "checker_under_test": "src/check_integrity.py (I01 của Tú), sha256=f771d049fdece1f3933995ee5f7a1b5bed56713e0908ba09343341231a19668b",
+  "prediction": "Cả 3 ca: object bị sửa FAIL/INPUT_INTEGRITY, các object còn lại PASS; data/ không đổi.",
+  "cases": [
+    {
+      "case": "M1",
+      "target": "observations_b.jsonl",
+      "change": "lật bit thấp của byte offset 518719",
+      "expected": "observations_b.jsonl FAIL/INPUT_INTEGRITY, 3 object khác PASS, I01 FAIL",
+      "observed": {
+        "observations_a.csv": [
+          "PASS",
+          null
+        ],
+        "observations_b.jsonl": [
+          "FAIL",
+          "INPUT_INTEGRITY"
+        ],
+        "qa_reference.csv": [
+          "PASS",
+          null
+        ],
+        "sensors.csv": [
+          "PASS",
+          null
+        ]
+      },
+      "observed_bytes": [
+        1037439,
+        1037439
+      ],
+      "i01_status": "FAIL",
+      "stdout": [
+        "observations_a.csv: PASS",
+        "observations_b.jsonl: FAIL",
+        "qa_reference.csv: PASS",
+        "sensors.csv: PASS",
+        "I01: FAIL",
+        "Saved: /tmp/tmpi4lt98__/lab2-bigdata/outputs/integrity-test.json"
+      ],
+      "status": "PASS"
+    },
+    {
+      "case": "M2",
+      "target": "sensors.csv",
+      "change": "thay byte cuối (offset 255)",
+      "expected": "sensors.csv FAIL/INPUT_INTEGRITY, 3 object khác PASS, I01 FAIL",
+      "observed": {
+        "observations_a.csv": [
+          "PASS",
+          null
+        ],
+        "observations_b.jsonl": [
+          "PASS",
+          null
+        ],
+        "qa_reference.csv": [
+          "PASS",
+          null
+        ],
+        "sensors.csv": [
+          "FAIL",
+          "INPUT_INTEGRITY"
+        ]
+      },
+      "observed_bytes": [
+        256,
+        256
+      ],
+      "i01_status": "FAIL",
+      "stdout": [
+        "observations_a.csv: PASS",
+        "observations_b.jsonl: PASS",
+        "qa_reference.csv: PASS",
+        "sensors.csv: FAIL",
+        "I01: FAIL",
+        "Saved: /tmp/tmpsomknlj4/lab2-bigdata/outputs/integrity-test.json"
+      ],
+      "status": "PASS"
+    },
+    {
+      "case": "M3",
+      "target": "qa_reference.csv",
+      "change": "nối thêm 1 byte '\\n' vào cuối file",
+      "expected": "qa_reference.csv FAIL/INPUT_INTEGRITY, 3 object khác PASS, I01 FAIL",
+      "observed": {
+        "observations_a.csv": [
+          "PASS",
+          null
+        ],
+        "observations_b.jsonl": [
+          "PASS",
+          null
+        ],
+        "qa_reference.csv": [
+          "FAIL",
+          "INPUT_INTEGRITY"
+        ],
+        "sensors.csv": [
+          "PASS",
+          null
+        ]
+      },
+      "observed_bytes": [
+        1423,
+        1424
+      ],
+      "i01_status": "FAIL",
+      "stdout": [
+        "observations_a.csv: PASS",
+        "observations_b.jsonl: PASS",
+        "qa_reference.csv: FAIL",
+        "sensors.csv: PASS",
+        "I01: FAIL",
+        "Saved: /tmp/tmp43v__sn8/lab2-bigdata/outputs/integrity-test.json"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "originals_unchanged": true,
+  "status": "PASS"
+}

@@ -1,0 +1,43 @@
+{
+  "cross_check": "D (Hải Anh) → E (Trung): gate phải REJECT khi thiếu steward",
+  "prediction": "CTRL PASS 9/9; P05 và P05b REJECT với METADATA, 8/9 (chỉ G07 FAIL).",
+  "gate_sha256": "1d773e98821e5ee98d17aed848d8a5d548e5fe341e46d5bacd35341381eaba3c",
+  "cases": [
+    {
+      "case": "CTRL",
+      "expected": "PASS 9/9",
+      "decision": "PASS",
+      "passed": "9/9",
+      "failed_categories": [],
+      "metadata_reasons": [],
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "case": "P05",
+      "expected": "REJECT / METADATA",
+      "decision": "REJECT",
+      "passed": "8/9",
+      "failed_categories": [
+        "METADATA"
+      ],
+      "metadata_reasons": [
+        "curated_candidate: thiếu steward"
+      ],
+      "exit_code": 1,
+      "status": "PASS"
+    },
+    {
+      "case": "P05b",
+      "expected": "REJECT / METADATA",
+      "decision": "PASS",
+      "passed": "9/9",
+      "failed_categories": [],
+      "metadata_reasons": [],
+      "exit_code": 0,
+      "status": "FAIL"
+    }
+  ],
+  "base_bundle_unchanged": true,
+  "status": "FAIL"
+}

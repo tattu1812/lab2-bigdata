@@ -1,0 +1,4 @@
+CATALOG: FAIL
+ERROR: curated_candidate: thiếu field steward
+WARNING: raw: location S3 chưa kiểm tra trực tiếp
+exit_code=1

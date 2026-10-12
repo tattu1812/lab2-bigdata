@@ -199,6 +199,7 @@ lại từ S3 với run ID mới:
 | Task 2B quality after | – | 8 metric, 9610 dòng, QA 100 | Giống `evidence/task2/quality_after.json` |
 | Task 4 `validate_catalog.py` (trong Pod, có DuckDB) | – | `CATALOG: PASS` | – |
 | Gate tests P01–P08 | `gatetest-20261012-03` | PASS (7 ca REJECT) | Giống `gatetest-20261012-02`, chỉ khác `executed_at`/`test_id` |
+| Gate tests sau khi sửa `FILLED` | `gatetest-20261012-04` | PASS (7 ca REJECT) | Giống `-03`, chỉ khác `gate_sha256` (xem `evidence/task5/finding-20261012-03-blank-steward.md`) |
 | QA crosscheck | `qacheck-20261012-02` | PASS (100/100, 95/100) | Giống `qacheck-20261012-01` |
 | Consumer check `release-20261012-02` | – | PASS | Giống `consumer-check.json`, chỉ khác `executed_at` |
 

@@ -12,13 +12,14 @@ Các đường dẫn dưới đây là đường dẫn **bên trong** `lab2-subm
 | 5 | `integrity-test.json`, `access-test.json` | Tú | `evidence/task1/integrity-test.json`, `evidence/task1/access-test.json` (+ I02/I03, run Task 1) | [x] |
 | 6 | `quality_before.json`, `quality_after.json`, biểu đồ | Trung Nguyễn | `evidence/task2/quality_before.json`, `quality_after.json`, `quality_before_after.png`, `task2_crosscheck_after.json` | [x] |
 | 7 | Manifest artifact của candidate, kết quả C01–C05 | Khánh | `evidence/task3/runs/task3-20261012-01/run-manifest.json`, `artifact-hashes.json`, `curate-checks.json` (+ run tái lập `task3-20261012-02`) | [x] |
-| 8 | `catalog.json`, `README.md`, `lineage.jsonl`, `run-record.json`, `retention-plan.json` | Hải Anh | `catalog.json`, `evidence/task4/README.md`, `evidence/task4/lineage.jsonl`, `run-record.json`, `retention-plan.json` | [x] |
+| 8 | `catalog.json`, `README.md`, `lineage.jsonl`, `run-record.json`, `retention-plan.json` | Hải Anh | `catalog.json`, `evidence/task4/README.md`, `evidence/task4/lineage.jsonl`, `run-record.json`, `retention-plan.json`, `trace-L02-L03.json` | [x] (thiếu M01–M03, xem README › Hạn chế) |
 | 9 | `gate-tests.json`, `consumer-check.json`, `release_manifest.json` | Trung | `evidence/task5/gate-tests.json`, `consumer-check.json`, `release_manifest.json` (+ `review.json`, `qa-crosscheck.json`, `lineage-publish.jsonl`, `runs/`) | [x] |
-| 10 | `contributions.csv` | Cả nhóm | `contributions.csv` | [ ] mỗi thành viên đổi `confirmed_by_member` thành `yes` sau khi đọc dòng của mình; Tú bổ sung cột `cross_checks_done` |
+| 10 | `contributions.csv` | Cả nhóm | `contributions.csv` | [ ] mỗi thành viên đổi `confirmed_by_member` thành `yes` sau khi đọc dòng của mình |
 | 11 | Sổ quarantine/duplicates | Khánh | **Chỉ** trong `lab2-restricted.zip` (`restricted/quarantine.csv`, `restricted/duplicates.csv`). Không có trong bản chính, không có trong release cho analyst, không có trên GitHub | [x] |
+| 12 | Phần cá nhân (thay đổi kỹ thuật, kiểm tra chéo, 6 câu hỏi) | Từng người | `individual/<vai>-<tên>/answers.md` + script/kết quả kiểm tra chéo | [ ] mỗi người tự chạy lại, viết lại bằng lời mình và đánh dấu "Đã kiểm chứng" |
 
 Ngoài checklist, ZIP còn có: `README.md`, `SUBMISSION.md`, `evidence/evidence_index.csv`,
-`docs/Task1..5Tutorial.md`, `individual/*.md`, `FILES.sha256` (SHA-256 của từng file trong ZIP).
+`docs/Task1..5Tutorial.md`, `FILES.sha256` (SHA-256 của từng file trong ZIP).
 
 ## Kiểm tra trước khi nộp
 
